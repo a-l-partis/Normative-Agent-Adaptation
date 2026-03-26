@@ -1,8 +1,3 @@
-# Normative-Agent-Adaptation
-
-[//]: # (<h1> Downloading The Anonymised Repository </h1>)
-[//]: # (The anonymised version of this repository may take a while to download. If the download is failing, try a different browser. We have tested it successfully using Chrome and Firefox.)
-
 <h1>Adaptation and RoboSim conversion Executable</h1>
 
 ### Requirements ###
