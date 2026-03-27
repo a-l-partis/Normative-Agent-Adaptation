@@ -1,0 +1,92 @@
+def_start
+	measure guard0 : boolean
+	measure guard1 : boolean
+	measure guard2 : boolean
+	measure guard3 : boolean
+	measure guard4 : boolean
+	measure guard5 : numeric
+	measure guard6 : boolean
+	measure guard7 : boolean
+	measure guard8 : boolean
+	measure guard9 : boolean
+	measure guard10 : boolean
+	measure guard11 : boolean
+	measure guard12 : numeric
+	measure guard13 : boolean
+	measure guard14 : numeric
+	measure guard15 : boolean
+	event Task1End
+	event Response1
+	event Task2Start
+	event Response2
+	event Task3End
+	event Response3
+	event Task4Start
+	event Response4
+	event Task5End
+	event Response5
+	event Task6Start
+	event Response6
+	event Task7Start
+	event Response7
+	event Task8End
+	event Response8
+	event Task9End
+	event Response9
+	event Task10End
+	event Response10
+	event Task11End
+	event Response11
+	event Task12End
+	event Response12
+	event Task13End
+	event Response13
+	event Task14Start
+	event Response14
+	event Task15Start
+	event Response15
+	event Task16End
+	event Response16
+	event Task17Start
+	event Response17
+	event Task18Start
+	event Response18
+	event Task19Start
+	event Response19
+	event Task20Start
+	event Response20
+	event Task21End
+	event Response21
+	event Task22Start
+	event Response22
+	event Task23End
+	event Response23
+	event Task24Start
+	event Response24
+def_end
+rule_start
+	Rule1 when Task1End then Response1
+	Rule2 when Task2Start and not guard0 then Response2
+	Rule3 when Task3End and guard1 and guard2 then Response3
+	Rule4 when Task4Start then Response4
+	Rule5 when Task5End and guard3 then Response5
+	Rule6 when Task6Start and guard4 then Response6
+	Rule7 when Task7Start then Response7
+	Rule8 when Task8End then Response8
+	Rule9 when Task9End then Response9
+	Rule10 when Task10End and guard5 <> 17 or guard6 then Response10
+	Rule11 when Task11End and guard7 or guard8 or guard9 and guard10 then Response11
+	Rule12 when Task12End then Response12
+	Rule13 when Task13End and guard11 and 50 <> 34 then Response13
+	Rule14 when Task14Start then Response14
+	Rule15 when Task15Start then Response15
+	Rule16 when Task16End and 50 <> 0 then Response16
+	Rule17 when Task17Start and guard12 = 6 then Response17
+	Rule18 when Task18Start and not guard13 then Response18
+	Rule19 when Task19Start and 45 >= guard14 then Response19
+	Rule20 when Task20Start then Response20
+	Rule21 when Task21End then Response21
+	Rule22 when Task22Start and guard15 then Response22
+	Rule23 when Task23End then Response23
+	Rule24 when Task24Start then Response24
+rule_end

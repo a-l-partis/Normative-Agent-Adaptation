@@ -1,0 +1,20 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Loop {
+				loop GuardedWorkflow {
+						body Task {
+							ID "Vacuum"
+						}
+						guard Atom {
+							measureID "needsVacuuming"
+					}
+				}
+			}
+		}
+		
+	}
+}

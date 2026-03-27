@@ -1,0 +1,17 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "AlertUser"
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Task {
+				ID "LeaveRoom"
+				
+			}
+		}
+		
+	}
+}

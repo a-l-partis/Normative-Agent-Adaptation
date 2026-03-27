@@ -1,0 +1,230 @@
+WorkflowStructure {
+	 workflowspec Loop {
+		loop GuardedWorkflow {
+			body Sequence {
+				subworkflows {
+					Task {
+						ID 
+"Task1"},
+					Decision {
+						options {
+							GuardedWorkflow {
+								body Loop {
+									loop GuardedWorkflow {
+										body Loop {
+											loop GuardedWorkflow {
+												body Task {
+													ID 
+"Task2"}
+												guard Atom {
+													measureID "guard0"
+												}
+											}
+										}
+										guard BoolComp {
+											op AND
+											right Not {
+												op not
+												expr BoolComp {
+													op AND
+													right Atom {
+														measureID "guard1"
+													}
+													left Not {
+														op not
+														expr Not {
+															op not
+															expr Atom {
+																measureID "guard2"
+															}
+														}
+													}
+												}
+											}
+											left Atom {
+												measureID "guard3"
+											}
+										}
+									}
+								}
+								guard Not {
+									op not
+									expr Atom {
+										measureID "guard4"
+									}
+								}
+							},
+							GuardedWorkflow {
+								body Task {
+									ID 
+"Task3"}
+								guard Atom {
+									measureID "guard5"
+								}
+							},
+							GuardedWorkflow {
+								body Decision {
+									options {
+										GuardedWorkflow {
+											body Task {
+												ID 
+"Task4"}
+											guard RelComp {
+												op GREATER_THAN
+												left Atom {
+													measureID "guard6"
+												}
+												right Atom {
+													measureID "guard7"
+												}
+											}
+										},
+										GuardedWorkflow {
+											body Sequence {
+												subworkflows {
+													Task {
+														ID 
+"Task5"},
+													Task {
+														ID 
+"Task6"},
+													Task {
+														ID 
+"Task7"}
+												}
+											}
+											guard RelComp {
+												op GREATER_EQUAL
+												left Value {
+													value 25
+												}
+												right Atom {
+													measureID "guard8"
+												}
+											}
+										},
+										GuardedWorkflow {
+											body Task {
+												ID 
+"Task8"}
+											guard Atom {
+												measureID "guard9"
+											}
+										}
+									}
+								}
+								guard Not {
+									op not
+									expr Atom {
+										measureID "guard10"
+									}
+								}
+							},
+							GuardedWorkflow {
+								body Sequence {
+									subworkflows {
+										Task {
+											ID 
+"Task9"},
+										Task {
+											ID 
+"Task10"},
+										Task {
+											ID 
+"Task11"}
+									}
+								}
+								guard BoolComp {
+									op OR
+									right Atom {
+										measureID "guard11"
+									}
+									left BoolComp {
+										op AND
+										right Atom {
+											measureID "guard12"
+										}
+										left Atom {
+											measureID "guard13"
+										}
+									}
+								}
+							},
+							GuardedWorkflow {
+								body Task {
+									ID 
+"Task12"}
+								guard Atom {
+									measureID "guard14"
+								}
+							}
+						}
+					},
+					Sequence {
+						subworkflows {
+							Sequence {
+								subworkflows {
+									Task {
+										ID 
+"Task13"},
+									Task {
+										ID 
+"Task14"}
+								}
+							},
+							Task {
+								ID 
+"Task15"},
+							Task {
+								ID 
+"Task16"}
+						}
+					},
+					Task {
+						ID 
+"Task17"},
+					Sequence {
+						subworkflows {
+							Task {
+								ID 
+"Task18"},
+							Task {
+								ID 
+"Task19"},
+							Task {
+								ID 
+"Task20"}
+						}
+					},
+					Task {
+						ID 
+"Task21"}
+				}
+			}
+			guard BoolComp {
+				op AND
+				right Atom {
+					measureID "guard15"
+				}
+				left BoolComp {
+					op AND
+					right Not {
+						op not
+						expr Atom {
+							measureID "guard16"
+						}
+					}
+					left RelComp {
+						op LESS_THAN
+						left Value {
+							value 36
+						}
+						right Value {
+							value 43
+						}
+					}
+				}
+			}
+		}
+	}
+}

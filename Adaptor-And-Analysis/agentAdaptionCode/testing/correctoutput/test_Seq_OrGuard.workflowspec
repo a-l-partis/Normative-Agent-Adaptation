@@ -1,0 +1,57 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Task {
+				ID "GoToRoom"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "SetSilentCleaningMode"
+						}
+						guard BoolComp {
+							op OR
+							right Atom {
+								measureID "userDustAllergy"
+							}
+							left Atom {
+								measureID "userSleeping"
+							}
+						}
+					},
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+						}
+						guard Not {
+							op "Not"
+							expr BoolComp {
+								op OR
+								right Atom {
+									measureID "userDustAllergy"
+								}
+								left Atom {
+									measureID "userSleeping"
+								}
+							}
+						}
+					}
+				}
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Task {
+				ID "beep"
+			},
+			Task {
+				ID "Dock"
+			}
+		}
+		
+	}
+}

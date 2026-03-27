@@ -1,0 +1,27 @@
+WorkflowStructure {
+	workflowspec Loop {
+		loop GuardedWorkflow {
+			body Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "Vacuum"
+						}
+						guard Atom {
+							measureID "needsVacuuming"}
+						},
+						GuardedWorkflow {
+						body Task {
+							ID "Skip"
+						}
+						guard Atom {
+							measureID "not needsVacuuming"}
+						}
+					}
+				}
+			guard Atom {
+				measureID "not userPraying"
+			}
+		}	
+	}
+}

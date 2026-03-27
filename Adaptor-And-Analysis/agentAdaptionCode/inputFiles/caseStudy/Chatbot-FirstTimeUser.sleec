@@ -1,0 +1,13 @@
+def_start
+	event ExplainCantReturnEnd
+	event ReadCustomerGreetingEnd
+	event Apologise
+	event PassOntoHumanOperator
+	event SetMoreThoroughExplainationMode
+	measure userRequestsHumanOperator : boolean
+	measure newUser : boolean
+def_end
+rule_start
+	Rule1 when ExplainCantReturnEnd then Apologise unless userRequestsHumanOperator then PassOntoHumanOperator
+	Rule2 when ReadCustomerGreetingEnd and newUser then SetMoreThoroughExplainationMode
+rule_end

@@ -1,0 +1,457 @@
+def_start
+	measure guard0 : boolean
+	measure guard1 : numeric
+	measure guard2 : numeric
+	measure guard3 : boolean
+	measure guard4 : boolean
+	measure guard5 : boolean
+	measure guard6 : boolean
+	measure guard7 : boolean
+	measure guard8 : boolean
+	measure guard9 : boolean
+	measure guard10 : numeric
+	measure guard11 : numeric
+	measure guard12 : boolean
+	measure guard13 : boolean
+	measure guard14 : numeric
+	measure guard15 : numeric
+	measure guard16 : boolean
+	measure guard17 : boolean
+	measure guard18 : boolean
+	measure guard19 : numeric
+	measure guard20 : boolean
+	measure guard21 : boolean
+	measure guard22 : numeric
+	measure guard23 : numeric
+	measure guard24 : numeric
+	measure guard25 : boolean
+	measure guard26 : boolean
+	measure guard27 : boolean
+	measure guard28 : numeric
+	measure guard29 : boolean
+	measure guard30 : numeric
+	measure guard31 : boolean
+	measure guard32 : boolean
+	measure guard33 : boolean
+	measure guard34 : boolean
+	measure guard35 : boolean
+	measure guard36 : boolean
+	measure guard37 : boolean
+	measure guard38 : boolean
+	measure guard39 : boolean
+	measure guard40 : boolean
+	measure guard41 : boolean
+	measure guard42 : numeric
+	measure guard43 : numeric
+	measure guard44 : numeric
+	measure guard45 : boolean
+	measure guard46 : boolean
+	measure guard47 : boolean
+	measure guard48 : boolean
+	measure guard49 : boolean
+	measure guard50 : numeric
+	measure guard51 : numeric
+	measure guard52 : boolean
+	measure guard53 : numeric
+	measure guard54 : numeric
+	measure guard55 : numeric
+	measure guard56 : numeric
+	measure guard57 : boolean
+	measure guard58 : boolean
+	measure guard59 : numeric
+	measure guard60 : numeric
+	measure guard61 : numeric
+	measure guard62 : numeric
+	measure guard63 : numeric
+	measure guard64 : numeric
+	measure guard65 : boolean
+	measure guard66 : numeric
+	measure guard67 : numeric
+	measure guard68 : boolean
+	measure guard69 : boolean
+	measure guard70 : numeric
+	measure guard71 : boolean
+	measure guard72 : boolean
+	measure guard73 : boolean
+	measure guard74 : boolean
+	measure guard75 : boolean
+	measure guard76 : numeric
+	measure guard77 : boolean
+	measure guard78 : numeric
+	measure guard79 : boolean
+	measure guard80 : boolean
+	event Task1End
+	event Response1
+	event Task2End
+	event Response2
+	event Task3Start
+	event Response3
+	event Task4Start
+	event Response4
+	event Task5Start
+	event Response5
+	event Task6Start
+	event Response6
+	event Task7Start
+	event Response7
+	event Task8Start
+	event Response8
+	event Task9Start
+	event Response9
+	event Task10Start
+	event Response10
+	event Task11Start
+	event Response11
+	event Task12End
+	event Response12
+	event Task13End
+	event Response13
+	event Task14End
+	event Response14
+	event Task15Start
+	event Response15
+	event Task16End
+	event Response16
+	event Task17End
+	event Response17
+	event Task18End
+	event Response18
+	event Task19End
+	event Response19
+	event Task20End
+	event Response20
+	event Task21End
+	event Response21
+	event Task22Start
+	event Response22
+	event Task23End
+	event Response23
+	event Task24End
+	event Response24
+	event Task25End
+	event Response25
+	event Task26Start
+	event Response26
+	event Task27End
+	event Response27
+	event Task28Start
+	event Response28
+	event Task29End
+	event Response29
+	event Task30Start
+	event Response30
+	event Task31Start
+	event Response31
+	event Task32Start
+	event Response32
+	event Task33End
+	event Response33
+	event Task34Start
+	event Response34
+	event Task35Start
+	event Response35
+	event Task36Start
+	event Response36
+	event Task37Start
+	event Response37
+	event Task38End
+	event Response38
+	event Task39Start
+	event Response39
+	event Task40Start
+	event Response40
+	event Task41Start
+	event Response41
+	event Task42End
+	event Response42
+	event Task43End
+	event Response43
+	event Task44End
+	event Response44
+	event Task45End
+	event Response45
+	event Task46Start
+	event Response46
+	event Task47Start
+	event Response47
+	event Task48End
+	event Response48
+	event Task49Start
+	event Response49
+	event Task50End
+	event Response50
+	event Task51Start
+	event Response51
+	event Task52Start
+	event Response52
+	event Task53End
+	event Response53
+	event Task54End
+	event Response54
+	event Task55End
+	event Response55
+	event Task56End
+	event Response56
+	event Task57End
+	event Response57
+	event Task58End
+	event Response58
+	event Task59End
+	event Response59
+	event Task60Start
+	event Response60
+	event Task61Start
+	event Response61
+	event Task62Start
+	event Response62
+	event Task63Start
+	event Response63
+	event Task64End
+	event Response64
+	event Task65End
+	event Response65
+	event Task66End
+	event Response66
+	event Task67End
+	event Response67
+	event Task68Start
+	event Response68
+	event Task69End
+	event Response69
+	event Task70End
+	event Response70
+	event Task71Start
+	event Response71
+	event Task72Start
+	event Response72
+	event Task73Start
+	event Response73
+	event Task74Start
+	event Response74
+	event Task75Start
+	event Response75
+	event Task76Start
+	event Response76
+	event Task77Start
+	event Response77
+	event Task78Start
+	event Response78
+	event Task79Start
+	event Response79
+	event Task80End
+	event Response80
+	event Task81Start
+	event Response81
+	event Task82End
+	event Response82
+	event Task83End
+	event Response83
+	event Task84End
+	event Response84
+	event Task85Start
+	event Response85
+	event Task86Start
+	event Response86
+	event Task87End
+	event Response87
+	event Task88Start
+	event Response88
+	event Task89End
+	event Response89
+	event Task90Start
+	event Response90
+	event Task91End
+	event Response91
+	event Task92End
+	event Response92
+	event Task93End
+	event Response93
+	event Task94Start
+	event Response94
+	event Task95End
+	event Response95
+	event Task96Start
+	event Response96
+	event Task97End
+	event Response97
+	event Task98Start
+	event Response98
+	event Task99End
+	event Response99
+	event Task100Start
+	event Response100
+	event Task101Start
+	event Response101
+	event Task102Start
+	event Response102
+	event Task103Start
+	event Response103
+	event Task104End
+	event Response104
+	event Task105Start
+	event Response105
+	event Task106End
+	event Response106
+	event Task107Start
+	event Response107
+	event Task108Start
+	event Response108
+	event Task109Start
+	event Response109
+	event Task110End
+	event Response110
+	event Task111End
+	event Response111
+	event Task112End
+	event Response112
+	event Task113Start
+	event Response113
+	event Task114Start
+	event Response114
+	event Task115Start
+	event Response115
+	event Task116End
+	event Response116
+	event Task117End
+	event Response117
+	event Task118End
+	event Response118
+	event Task119Start
+	event Response119
+	event Task120Start
+	event Response120
+	event Task121End
+	event Response121
+	event Task122End
+	event Response122
+	event Task123End
+	event Response123
+	event Task124End
+	event Response124
+def_end
+rule_start
+	Rule1 when Task1End and 30 > 35 then Response1
+	Rule2 when Task2End and guard0 then Response2
+	Rule3 when Task3Start then Response3
+	Rule4 when Task4Start then Response4
+	Rule5 when Task5Start and 47 < 35 then Response5
+	Rule6 when Task6Start and guard1 >= guard2 then Response6
+	Rule7 when Task7Start then Response7
+	Rule8 when Task8Start then Response8
+	Rule9 when Task9Start and not guard3 or not guard4 then Response9
+	Rule10 when Task10Start and guard5 or 39 <= 43 or guard6 or guard7 then Response10
+	Rule11 when Task11Start and not guard8 or guard9 then Response11
+	Rule12 when Task12End and not guard10 = guard11 then Response12
+	Rule13 when Task13End and 2 <> 38 and guard12 then Response13
+	Rule14 when Task14End then Response14
+	Rule15 when Task15Start and not guard13 then Response15
+	Rule16 when Task16End then Response16
+	Rule17 when Task17End and guard14 >= guard15 then Response17
+	Rule18 when Task18End then Response18
+	Rule19 when Task19End then Response19
+	Rule20 when Task20End then Response20
+	Rule21 when Task21End and guard16 then Response21
+	Rule22 when Task22Start then Response22
+	Rule23 when Task23End then Response23
+	Rule24 when Task24End then Response24
+	Rule25 when Task25End and guard17 then Response25
+	Rule26 when Task26Start then Response26
+	Rule27 when Task27End and not guard18 then Response27
+	Rule28 when Task28Start then Response28
+	Rule29 when Task29End and 19 < 29 then Response29
+	Rule30 when Task30Start then Response30
+	Rule31 when Task31Start and guard19 >= 11 then Response31
+	Rule32 when Task32Start then Response32
+	Rule33 when Task33End and guard20 then Response33
+	Rule34 when Task34Start then Response34
+	Rule35 when Task35Start then Response35
+	Rule36 when Task36Start and guard21 then Response36
+	Rule37 when Task37Start then Response37
+	Rule38 when Task38End then Response38
+	Rule39 when Task39Start then Response39
+	Rule40 when Task40Start then Response40
+	Rule41 when Task41Start then Response41
+	Rule42 when Task42End and not guard22 = guard23 then Response42
+	Rule43 when Task43End then Response43
+	Rule44 when Task44End and 35 <> 45 then Response44
+	Rule45 when Task45End and 9 > guard24 then Response45
+	Rule46 when Task46Start and not guard25 or guard26 then Response46
+	Rule47 when Task47Start then Response47
+	Rule48 when Task48End and guard27 then Response48
+	Rule49 when Task49Start then Response49
+	Rule50 when Task50End then Response50
+	Rule51 when Task51Start and guard28 > 23 then Response51
+	Rule52 when Task52Start and guard29 then Response52
+	Rule53 when Task53End then Response53
+	Rule54 when Task54End and guard30 >= 13 then Response54
+	Rule55 when Task55End and 5 >= 17 or guard31 then Response55
+	Rule56 when Task56End then Response56
+	Rule57 when Task57End then Response57
+	Rule58 when Task58End and guard32 and 30 <= 14 or guard33 then Response58
+	Rule59 when Task59End then Response59
+	Rule60 when Task60Start and guard34 or guard35 then Response60
+	Rule61 when Task61Start then Response61
+	Rule62 when Task62Start and not guard36 or guard37 and guard38 or guard39 or guard40 or guard41 then Response62
+	Rule63 when Task63Start then Response63
+	Rule64 when Task64End then Response64
+	Rule65 when Task65End and guard42 >= 47 then Response65
+	Rule66 when Task66End then Response66
+	Rule67 when Task67End and guard43 > guard44 then Response67
+	Rule68 when Task68Start then Response68
+	Rule69 when Task69End then Response69
+	Rule70 when Task70End then Response70
+	Rule71 when Task71Start then Response71
+	Rule72 when Task72Start then Response72
+	Rule73 when Task73Start then Response73
+	Rule74 when Task74Start then Response74
+	Rule75 when Task75Start and not guard45 then Response75
+	Rule76 when Task76Start then Response76
+	Rule77 when Task77Start and guard46 and guard47 then Response77
+	Rule78 when Task78Start then Response78
+	Rule79 when Task79Start and not guard48 then Response79
+	Rule80 when Task80End and guard49 then Response80
+	Rule81 when Task81Start then Response81
+	Rule82 when Task82End then Response82
+	Rule83 when Task83End then Response83
+	Rule84 when Task84End and 31 < guard50 then Response84
+	Rule85 when Task85Start and not guard51 > 23 or guard52 then Response85
+	Rule86 when Task86Start and guard53 = guard54 then Response86
+	Rule87 when Task87End and 45 <> guard55 then Response87
+	Rule88 when Task88Start and 48 = 35 and 44 >= guard56 and guard57 or guard58 then Response88
+	Rule89 when Task89End then Response89
+	Rule90 when Task90Start and 21 < guard59 then Response90
+	Rule91 when Task91End then Response91
+	Rule92 when Task92End then Response92
+	Rule93 when Task93End then Response93
+	Rule94 when Task94Start and not guard60 < 37 then Response94
+	Rule95 when Task95End then Response95
+	Rule96 when Task96Start and guard61 <> guard62 then Response96
+	Rule97 when Task97End then Response97
+	Rule98 when Task98Start and guard63 = guard64 then Response98
+	Rule99 when Task99End and guard65 then Response99
+	Rule100 when Task100Start and guard66 <> guard67 then Response100
+	Rule101 when Task101Start then Response101
+	Rule102 when Task102Start and 21 > 42 then Response102
+	Rule103 when Task103Start then Response103
+	Rule104 when Task104End then Response104
+	Rule105 when Task105Start and not guard68 then Response105
+	Rule106 when Task106End and guard69 then Response106
+	Rule107 when Task107Start then Response107
+	Rule108 when Task108Start then Response108
+	Rule109 when Task109Start and 16 > guard70 or 45 <= 11 then Response109
+	Rule110 when Task110End then Response110
+	Rule111 when Task111End and guard71 or guard72 and not 2 <> 47 then Response111
+	Rule112 when Task112End then Response112
+	Rule113 when Task113Start then Response113
+	Rule114 when Task114Start and guard73 then Response114
+	Rule115 when Task115Start and guard74 or guard75 and guard76 <= 44 then Response115
+	Rule116 when Task116End then Response116
+	Rule117 when Task117End then Response117
+	Rule118 when Task118End then Response118
+	Rule119 when Task119Start and not guard77 then Response119
+	Rule120 when Task120Start then Response120
+	Rule121 when Task121End and 37 > guard78 then Response121
+	Rule122 when Task122End then Response122
+	Rule123 when Task123End and guard79 or not guard80 then Response123
+	Rule124 when Task124End then Response124
+rule_end

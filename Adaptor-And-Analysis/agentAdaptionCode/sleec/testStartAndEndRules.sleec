@@ -1,0 +1,12 @@
+def_start
+	event VacuumStart
+	event VacuumEnd
+	event AlertUser
+	event LeaveRoom
+	
+def_end
+rule_start
+	Rule1 when VacuumStart then AlertUser
+	Rule2 when VacuumEnd then LeaveRoom
+	
+rule_end

@@ -1,0 +1,8 @@
+def_start
+	event VacuumStart
+	event Pause
+	measure unmappedBumperCount : numeric
+def_end
+rule_start
+	Rule1 when VacuumStart and unmappedBumperCount > 10 then Pause
+rule_end

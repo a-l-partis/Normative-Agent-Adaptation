@@ -1,0 +1,13 @@
+def_start
+	event DustFurnitureStart
+	event CleanFloorEnd
+	event OpenWindow
+	event WarnAboutWetFloor
+	event PlaceWetFloorSign
+	measure prayingTime : boolean
+	
+def_end
+rule_start
+	Rule2a when DustFurnitureStart then OpenWindow
+	Rule2b when CleanFloorEnd then WarnAboutWetFloor unless prayingTime then PlaceWetFloorSign
+rule_end

@@ -1,0 +1,137 @@
+WorkflowStructure {
+	workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Decision {
+							options {
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+						}
+						guard Atom {
+							measureID "isADrill"
+						}
+					},
+					GuardedWorkflow {
+						body Decision {
+							options {
+								GuardedWorkflow {
+									body Task {
+										ID "ReturnToDock"
+									}
+									guard Atom {
+										measureID "emergency"
+									}
+								},
+								GuardedWorkflow{
+									body Decision {
+										options {
+											GuardedWorkflow {
+												body Task {
+													ID "PauseForTenMinutes"
+												}
+												guard Atom {
+													measureID "userAsleep"
+												}
+											},
+											GuardedWorkflow {
+												body Decision {
+													options {
+														GuardedWorkflow {
+															body Task {
+																ID "TellUserToOpenWindow"
+															}
+															guard Atom {
+																measureID "userDustAllergy"
+															}
+														},
+														GuardedWorkflow {
+															body Decision {
+																options {
+																	GuardedWorkflow {
+																		body Task {
+																			ID "WarnUser"
+																		}
+																		guard Atom {
+																			measureID "personPresent"
+																		}
+																	},
+																	GuardedWorkflow {
+																		body Task {
+																			ID "Skip"
+																		}
+																		guard Not {
+																			op "not"
+																			expr Atom {
+																				measureID "personPresent"
+																			}
+																		}
+																	}
+																}
+															}
+															guard Not {
+																op "not"
+																expr Atom {
+																	measureID "userDustAllergy"
+																}
+															}
+														}
+													}
+												}
+												guard Not {
+													op "not"
+													expr Atom {
+														measureID "userAsleep"
+													}
+												}
+											}
+										}
+									}
+									guard Not {
+										op "not"
+										expr Atom {
+											measureID "emergency"
+										}
+									}
+								}
+							}
+						}
+						guard Not {
+							op "not"
+							expr Atom {
+								measureID "isADrill"
+							}
+						}
+					}
+				}
+						},
+						Task {
+							ID "Vacuum"
+						}
+					}
+				}
+				guard Atom {
+					measureID "needsVacuuming and not personPresent"
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID "Skip"
+					}
+					guard Atom {
+						measureID "not needsVacuuming"
+					}
+				},
+			GuardedWorkflow {
+				body Task {
+					ID "Dock"
+					}
+					guard Atom {
+						measureID "personPresent"
+				}
+			}
+		}
+	}
+}

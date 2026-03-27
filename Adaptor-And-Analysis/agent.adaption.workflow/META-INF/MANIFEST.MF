@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: agent.adaption.workflow;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-ClassPath: agent.adaption.workflow
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: workflowspec,
+ workflowspec.impl,
+ workflowspec.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: agent.adaption.workflow

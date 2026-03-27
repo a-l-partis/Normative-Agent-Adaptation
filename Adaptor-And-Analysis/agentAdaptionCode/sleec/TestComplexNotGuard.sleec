@@ -1,0 +1,10 @@
+def_start
+	event VacuumEnd
+	event ReturnToDock
+	measure wayBlocked : boolean
+	measure daytime : boolean
+def_end
+rule_start
+	Rule1 when VacuumEnd and (wayBlocked and not daytime) then ReturnToDock
+	
+rule_end

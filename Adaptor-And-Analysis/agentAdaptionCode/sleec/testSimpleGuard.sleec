@@ -1,0 +1,9 @@
+def_start
+	event VacuumStart
+	event SetSilentCleaningMode
+	measure userSleeping : boolean	
+def_end
+rule_start
+	Rule1 when VacuumStart and userSleeping then SetSilentCleaningMode
+	
+rule_end

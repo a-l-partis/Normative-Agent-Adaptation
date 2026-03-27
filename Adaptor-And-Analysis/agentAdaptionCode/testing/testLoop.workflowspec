@@ -1,0 +1,12 @@
+WorkflowStructure {
+	workflowspec Loop {
+		loop GuardedWorkflow {
+			body Task {
+				ID "Vacuum"
+			}
+			guard Atom {
+				measureID "needsVacuuming"
+			}
+		}
+	}
+}

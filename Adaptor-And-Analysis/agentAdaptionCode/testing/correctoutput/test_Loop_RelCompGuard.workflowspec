@@ -1,0 +1,52 @@
+WorkflowStructure {
+	workflowspec Loop {
+		loop GuardedWorkflow {
+			body Sequence {
+				subworkflows {
+					Decision {
+						options {
+							GuardedWorkflow {
+								body Task {
+									ID "Pause"
+								}
+								guard RelComp {
+									op GREATER_THAN
+									left Atom {
+										measureID "unmappedBumperCount"
+									}
+									right Value {
+										value 10
+									}
+									
+								}
+							},
+							GuardedWorkflow {
+								body Task {
+									ID "Skip"
+								}
+								guard Not {
+									op "not"
+									expr RelComp {
+										op GREATER_THAN
+										left Atom {
+											measureID "unmappedBumperCount"
+										}
+										right Value {
+											value 10
+										}
+									}
+								}
+							}
+						}
+					},
+					Task {
+						ID "Vacuum"
+					}
+				}
+			}
+			guard Atom {
+				measureID "needsVacuuming"
+			}
+		}
+	}
+}

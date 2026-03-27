@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/agent.adaption.workflow/src" modelPluginID="agent.adaption.workflow"
+    modelName="Workflowspec" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="21.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>workflowspec.ecore</foreignModel>
+  <genPackages prefix="Workflowspec" disposableProviderFactory="true" ecorePackage="workflowspec.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflowspec.ecore#//BoolOp">
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//BoolOp/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//BoolOp/OR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflowspec.ecore#//RelOp">
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//RelOp/LESS_THAN"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//RelOp/GREATER_THAN"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//RelOp/NOT_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//RelOp/LESS_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//RelOp/GREATER_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//RelOp/EQUAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflowspec.ecore#//TimeUnit">
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//TimeUnit/SECONDS"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//TimeUnit/MINUTES"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//TimeUnit/HOURS"/>
+      <genEnumLiterals ecoreEnumLiteral="workflowspec.ecore#//TimeUnit/DAYS"/>
+    </genEnums>
+    <genClasses ecoreClass="workflowspec.ecore#//WorkflowStructure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//WorkflowStructure/workflowspec"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="workflowspec.ecore#//Workflow"/>
+    <genClasses ecoreClass="workflowspec.ecore#//Sequence">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//Sequence/subworkflows"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//Task">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//Task/ID"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//Loop">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//Loop/loop"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//Decision">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//Decision/options"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//GuardedWorkflow">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//GuardedWorkflow/body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//GuardedWorkflow/guard"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//MBoolExpr"/>
+    <genClasses ecoreClass="workflowspec.ecore#//Value">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//Value/value"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//BoolValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//BoolValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//BoolComp">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//BoolComp/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//BoolComp/right"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//BoolComp/left"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//Not">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//Not/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//Not/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//RelComp">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//RelComp/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//RelComp/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflowspec.ecore#//RelComp/right"/>
+    </genClasses>
+    <genClasses ecoreClass="workflowspec.ecore#//Atom">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflowspec.ecore#//Atom/measureID"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: agent.adaption.xtext.workflow
+Bundle-SymbolicName: agent.adaption.xtext.workflow;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: agent.adaption.xtext.workflow
+Bundle-Vendor: My Company
+Export-Package: agent.adaption.xtext.workflow,
+ agent.adaption.xtext.workflow.formatting2,
+ agent.adaption.xtext.workflow.generator,
+ agent.adaption.xtext.workflow.parser.antlr,
+ agent.adaption.xtext.workflow.parser.antlr.internal,
+ agent.adaption.xtext.workflow.scoping,
+ agent.adaption.xtext.workflow.serializer,
+ agent.adaption.xtext.workflow.services,
+ agent.adaption.xtext.workflow.validation
+Require-Bundle: agent.adaption.workflow,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.19.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.log4j
+Automatic-Module-Name: agent.adaption.xtext.workflow

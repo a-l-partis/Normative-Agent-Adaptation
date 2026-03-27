@@ -1,0 +1,51 @@
+WorkflowStructure {
+	workflowspec Loop {
+		loop GuardedWorkflow {
+			body Sequence {
+				subworkflows {
+					Decision {
+						options {
+							GuardedWorkflow {
+								body Task {
+									ID "SetSilentCleaningMode"
+								}
+								guard BoolComp {
+									op OR
+									right Atom {
+										measureID "userDustAllergy"
+									}
+									left Atom {
+										measureID "userSleeping"
+									}
+								}
+							},
+							GuardedWorkflow {
+								body Task {
+									ID "Skip"
+								}
+								guard Not {
+									op "not"
+									expr BoolComp {
+										op OR
+										right Atom {
+											measureID "userDustAllergy"
+										}
+										left Atom {
+											measureID "userSleeping"
+										}
+									}
+								}
+							}
+						}
+					},
+					Task {
+						ID "Vacuum"
+					}
+				}
+			}
+			guard Atom {
+				measureID "needsVacuuming"
+			}
+		}
+	}
+}

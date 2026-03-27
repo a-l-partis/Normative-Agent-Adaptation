@@ -1,0 +1,39 @@
+WorkflowStructure {
+	workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Loop {
+					loop GuardedWorkflow {
+						body Sequence {
+					subworkflows {
+								Task {
+									ID "AlertUser"
+								},
+								Task {
+									ID "Vacuum"
+								},
+								Task {
+									ID "LeaveRoom"
+								}
+						}
+					}
+						guard Atom {
+							measureID "needsVacuuming"
+						}
+					}
+				}
+				guard Atom {
+					measureID "daytime"
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID "Skip"
+					}
+					guard Atom {
+						measureID "not daytime"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,57 @@
+WorkflowStructure {
+	workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Decision {
+							options {
+								GuardedWorkflow {
+									body Task {
+										ID "SetSilentCleaningMode"
+									}
+									guard Atom {
+										measureID "userSleeping"
+									}
+								},
+								GuardedWorkflow {
+									body Task {
+										ID "Skip"
+									}
+									guard Not {
+										op "not"
+										expr Atom {
+											measureID "userSleeping"
+										}
+									}
+								}
+							}
+						},
+						Task {
+							ID "Vacuum"
+						}
+					}
+				}
+				guard Atom {
+					measureID "needsVacuuming and not personPresent"
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID "Skip"
+					}
+					guard Atom {
+						measureID "not needsVacuuming"
+					}
+				},
+			GuardedWorkflow {
+				body Task {
+					ID "Dock"
+					}
+					guard Atom {
+						measureID "personPresent"
+				}
+			}
+		}
+	}
+}

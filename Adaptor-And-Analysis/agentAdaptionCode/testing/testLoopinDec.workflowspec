@@ -1,0 +1,29 @@
+WorkflowStructure {
+	workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Loop {
+					loop GuardedWorkflow {
+						body Task {
+							ID "Vacuum"
+						}
+						guard Atom {
+							measureID "needsVacuuming"
+						}
+					}
+				}
+				guard Atom {
+					measureID "daytime"
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID "Skip"
+					}
+					guard Atom {
+						measureID "not daytime"
+				}
+			}
+		}
+	}
+}

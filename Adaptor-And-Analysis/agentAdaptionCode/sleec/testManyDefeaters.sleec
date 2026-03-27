@@ -1,0 +1,22 @@
+def_start
+	event VacuumStart
+	event WarnUser
+	event TellUserToOpenWindow
+	event PauseForTenMinutes
+	event ReturnToDock
+	event SetSilentCleaningMode
+	measure personPresent : boolean
+	measure userDustAllergy : boolean
+	measure userAsleep : boolean
+	measure emergency : boolean
+	measure isADrill : boolean
+	
+def_end
+rule_start
+	Rule1 when VacuumStart and personPresent then WarnUser
+	unless userDustAllergy then TellUserToOpenWindow
+	unless userAsleep then PauseForTenMinutes
+	unless emergency then ReturnToDock
+	unless isADrill
+	
+rule_end

@@ -1,0 +1,1212 @@
+WorkflowStructure {
+	 workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Task {
+							ID 
+"Task1"},
+						Loop {
+							loop GuardedWorkflow {
+								body Loop {
+									loop GuardedWorkflow {
+										body Loop {
+											loop GuardedWorkflow {
+												body Task {
+													ID 
+"Task2"}
+												guard RelComp {
+													op GREATER_THAN
+													left Value {
+														value 32
+													}
+													right Value {
+														value 34
+													}
+												}
+											}
+										}
+										guard RelComp {
+											op LESS_THAN
+											left Value {
+												value 41
+											}
+											right Value {
+												value 1
+											}
+										}
+									}
+								}
+								guard BoolComp {
+									op AND
+									right BoolComp {
+										op AND
+										right Atom {
+											measureID "guard0"
+										}
+										left Atom {
+											measureID "guard1"
+										}
+									}
+									left Not {
+										op not
+										expr Atom {
+											measureID "guard2"
+										}
+									}
+								}
+							}
+						},
+						Sequence {
+							subworkflows {
+								Decision {
+									options {
+										GuardedWorkflow {
+											body Task {
+												ID 
+"Task3"}
+											guard Atom {
+												measureID "guard3"
+											}
+										},
+										GuardedWorkflow {
+											body Task {
+												ID 
+"Task4"}
+											guard Atom {
+												measureID "guard4"
+											}
+										}
+									}
+								},
+								Loop {
+									loop GuardedWorkflow {
+										body Task {
+											ID 
+"Task5"}
+										guard BoolComp {
+											op AND
+											right Atom {
+												measureID "guard5"
+											}
+											left BoolComp {
+												op OR
+												right Atom {
+													measureID "guard6"
+												}
+												left RelComp {
+													op GREATER_EQUAL
+													left Value {
+														value 43
+													}
+													right Value {
+														value 42
+													}
+												}
+											}
+										}
+									}
+								},
+								Loop {
+									loop GuardedWorkflow {
+										body Task {
+											ID 
+"Task6"}
+										guard RelComp {
+											op NOT_EQUAL
+											left Atom {
+												measureID "guard7"
+											}
+											right RelComp {
+												op EQUAL
+												left Value {
+													value 37
+												}
+												right Atom {
+													measureID "guard8"
+												}
+											}
+										}
+									}
+								},
+								Decision {
+									options {
+										GuardedWorkflow {
+											body Task {
+												ID 
+"Task7"}
+											guard Atom {
+												measureID "guard9"
+											}
+										},
+										GuardedWorkflow {
+											body Decision {
+												options {
+													GuardedWorkflow {
+														body Decision {
+															options {
+																GuardedWorkflow {
+																	body Sequence {
+																		subworkflows {
+																			Task {
+																				ID 
+"Task8"},
+																			Task {
+																				ID 
+"Task9"},
+																			Task {
+																				ID 
+"Task10"}
+																		}
+																	}
+																	guard BoolComp {
+																		op OR
+																		right Not {
+																			op not
+																			expr Not {
+																				op not
+																				expr Not {
+																					op not
+																					expr Atom {
+																						measureID "guard10"
+																					}
+																				}
+																			}
+																		}
+																		left Not {
+																			op not
+																			expr Not {
+																				op not
+																				expr Not {
+																					op not
+																					expr Atom {
+																						measureID "guard11"
+																					}
+																				}
+																			}
+																		}
+																	}
+																},
+																GuardedWorkflow {
+																	body Sequence {
+																		subworkflows {
+																			Task {
+																				ID 
+"Task11"},
+																			Sequence {
+																				subworkflows {
+																					Decision {
+																						options {
+																							GuardedWorkflow {
+																								body Loop {
+																									loop GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task12"}
+																										guard Atom {
+																											measureID "guard12"
+																										}
+																									}
+																								}
+																								guard Atom {
+																									measureID "guard13"
+																								}
+																							},
+																							GuardedWorkflow {
+																								body Task {
+																									ID 
+"Task13"}
+																								guard RelComp {
+																									op LESS_EQUAL
+																									left Value {
+																										value 0
+																									}
+																									right Value {
+																										value 30
+																									}
+																								}
+																							},
+																							GuardedWorkflow {
+																								body Loop {
+																									loop GuardedWorkflow {
+																										body Sequence {
+																											subworkflows {
+																												Task {
+																													ID 
+"Task14"},
+																												Task {
+																													ID 
+"Task15"},
+																												Task {
+																													ID 
+"Task16"},
+																												Loop {
+																													loop GuardedWorkflow {
+																														body Decision {
+																															options {
+																																GuardedWorkflow {
+																																	body Loop {
+																																		loop GuardedWorkflow {
+																																			body Task {
+																																				ID 
+"Task17"}
+																																			guard RelComp {
+																																				op GREATER_EQUAL
+																																				left Atom {
+																																					measureID "guard14"
+																																				}
+																																				right Value {
+																																					value 44
+																																				}
+																																			}
+																																		}
+																																	}
+																																	guard BoolComp {
+																																		op AND
+																																		right BoolComp {
+																																			op AND
+																																			right Atom {
+																																				measureID "guard15"
+																																			}
+																																			left Atom {
+																																				measureID "guard16"
+																																			}
+																																		}
+																																		left Not {
+																																			op not
+																																			expr Not {
+																																				op not
+																																				expr Atom {
+																																					measureID "guard17"
+																																				}
+																																			}
+																																		}
+																																	}
+																																},
+																																GuardedWorkflow {
+																																	body Task {
+																																		ID 
+"Task18"}
+																																	guard Not {
+																																		op not
+																																		expr Not {
+																																			op not
+																																			expr BoolComp {
+																																				op OR
+																																				right BoolComp {
+																																					op AND
+																																					right Atom {
+																																						measureID "guard18"
+																																					}
+																																					left Atom {
+																																						measureID "guard19"
+																																					}
+																																				}
+																																				left Not {
+																																					op not
+																																					expr Atom {
+																																						measureID "guard20"
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																},
+																																GuardedWorkflow {
+																																	body Task {
+																																		ID 
+"Task19"}
+																																	guard BoolComp {
+																																		op AND
+																																		right Atom {
+																																			measureID "guard21"
+																																		}
+																																		left RelComp {
+																																			op GREATER_EQUAL
+																																			left Value {
+																																				value 44
+																																			}
+																																			right Value {
+																																				value 45
+																																			}
+																																		}
+																																	}
+																																},
+																																GuardedWorkflow {
+																																	body Task {
+																																		ID 
+"Task20"}
+																																	guard Atom {
+																																		measureID "guard22"
+																																	}
+																																}
+																															}
+																														}
+																														guard Not {
+																															op not
+																															expr BoolComp {
+																																op AND
+																																right Atom {
+																																	measureID "guard23"
+																																}
+																																left RelComp {
+																																	op GREATER_THAN
+																																	left RelComp {
+																																		op GREATER_EQUAL
+																																		left Atom {
+																																			measureID "guard24"
+																																		}
+																																		right Value {
+																																			value 43
+																																		}
+																																	}
+																																	right Value {
+																																		value 7
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																										guard RelComp {
+																											op LESS_THAN
+																											left Atom {
+																												measureID "guard25"
+																											}
+																											right RelComp {
+																												op GREATER_THAN
+																												left Value {
+																													value 35
+																												}
+																												right Value {
+																													value 1
+																												}
+																											}
+																										}
+																									}
+																								}
+																								guard Atom {
+																									measureID "guard26"
+																								}
+																							}
+																						}
+																					},
+																					Task {
+																						ID 
+"Task21"},
+																					Task {
+																						ID 
+"Task22"},
+																					Task {
+																						ID 
+"Task23"},
+																					Sequence {
+																						subworkflows {
+																							Decision {
+																								options {
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task24"}
+																										guard BoolComp {
+																											op OR
+																											right Not {
+																												op not
+																												expr RelComp {
+																													op LESS_THAN
+																													left Value {
+																														value 34
+																													}
+																													right Value {
+																														value 32
+																													}
+																												}
+																											}
+																											left BoolComp {
+																												op AND
+																												right Not {
+																													op not
+																													expr Atom {
+																														measureID "guard27"
+																													}
+																												}
+																												left Atom {
+																													measureID "guard28"
+																												}
+																											}
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task25"}
+																										guard Atom {
+																											measureID "guard29"
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Loop {
+																											loop GuardedWorkflow {
+																												body Task {
+																													ID 
+"Task26"}
+																												guard Atom {
+																													measureID "guard30"
+																												}
+																											}
+																										}
+																										guard Atom {
+																											measureID "guard31"
+																										}
+																									}
+																								}
+																							},
+																							Decision {
+																								options {
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task27"}
+																										guard RelComp {
+																											op LESS_EQUAL
+																											left Value {
+																												value 30
+																											}
+																											right Value {
+																												value 11
+																											}
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task28"}
+																										guard Not {
+																											op not
+																											expr BoolComp {
+																												op AND
+																												right BoolComp {
+																													op OR
+																													right RelComp {
+																														op NOT_EQUAL
+																														left Atom {
+																															measureID "guard32"
+																														}
+																														right Value {
+																															value 48
+																														}
+																													}
+																													left BoolComp {
+																														op AND
+																														right Atom {
+																															measureID "guard33"
+																														}
+																														left Atom {
+																															measureID "guard34"
+																														}
+																													}
+																												}
+																												left Not {
+																													op not
+																													expr RelComp {
+																														op LESS_THAN
+																														left Atom {
+																															measureID "guard35"
+																														}
+																														right Value {
+																															value 39
+																														}
+																													}
+																												}
+																											}
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task29"}
+																										guard Atom {
+																											measureID "guard36"
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task30"}
+																										guard BoolComp {
+																											op OR
+																											right BoolComp {
+																												op OR
+																												right BoolComp {
+																													op AND
+																													right BoolComp {
+																														op OR
+																														right BoolComp {
+																															op AND
+																															right Atom {
+																																measureID "guard37"
+																															}
+																															left Atom {
+																																measureID "guard38"
+																															}
+																														}
+																														left Atom {
+																															measureID "guard39"
+																														}
+																													}
+																													left Atom {
+																														measureID "guard40"
+																													}
+																												}
+																												left RelComp {
+																													op NOT_EQUAL
+																													left RelComp {
+																														op EQUAL
+																														left Atom {
+																															measureID "guard41"
+																														}
+																														right Atom {
+																															measureID "guard42"
+																														}
+																													}
+																													right Value {
+																														value 42
+																													}
+																												}
+																											}
+																											left Not {
+																												op not
+																												expr Atom {
+																													measureID "guard43"
+																												}
+																											}
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task31"}
+																										guard Atom {
+																											measureID "guard44"
+																										}
+																									}
+																								}
+																							},
+																							Decision {
+																								options {
+																									GuardedWorkflow {
+																										body Decision {
+																											options {
+																												GuardedWorkflow {
+																													body Task {
+																														ID 
+"Task32"}
+																													guard RelComp {
+																														op GREATER_EQUAL
+																														left Value {
+																															value 2
+																														}
+																														right Value {
+																															value 1
+																														}
+																													}
+																												},
+																												GuardedWorkflow {
+																													body Task {
+																														ID 
+"Task33"}
+																													guard Atom {
+																														measureID "guard45"
+																													}
+																												}
+																											}
+																										}
+																										guard RelComp {
+																											op GREATER_EQUAL
+																											left Value {
+																												value 6
+																											}
+																											right RelComp {
+																												op LESS_THAN
+																												left RelComp {
+																													op LESS_EQUAL
+																													left Value {
+																														value 22
+																													}
+																													right Value {
+																														value 46
+																													}
+																												}
+																												right RelComp {
+																													op LESS_EQUAL
+																													left RelComp {
+																														op GREATER_THAN
+																														left RelComp {
+																															op LESS_EQUAL
+																															left Value {
+																																value 3
+																															}
+																															right Value {
+																																value 45
+																															}
+																														}
+																														right RelComp {
+																															op EQUAL
+																															left Value {
+																																value 7
+																															}
+																															right Atom {
+																																measureID "guard46"
+																															}
+																														}
+																													}
+																													right Value {
+																														value 30
+																													}
+																												}
+																											}
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Task {
+																											ID 
+"Task34"}
+																										guard Atom {
+																											measureID "guard47"
+																										}
+																									},
+																									GuardedWorkflow {
+																										body Loop {
+																											loop GuardedWorkflow {
+																												body Task {
+																													ID 
+"Task35"}
+																												guard RelComp {
+																													op LESS_EQUAL
+																													left Value {
+																														value 38
+																													}
+																													right RelComp {
+																														op LESS_EQUAL
+																														left Atom {
+																															measureID "guard48"
+																														}
+																														right Value {
+																															value 47
+																														}
+																													}
+																												}
+																											}
+																										}
+																										guard Atom {
+																											measureID "guard49"
+																										}
+																									}
+																								}
+																							},
+																							Sequence {
+																								subworkflows {
+																									Task {
+																										ID 
+"Task36"},
+																									Loop {
+																										loop GuardedWorkflow {
+																											body Task {
+																												ID 
+"Task37"}
+																											guard Not {
+																												op not
+																												expr BoolComp {
+																													op OR
+																													right BoolComp {
+																														op OR
+																														right Not {
+																															op not
+																															expr RelComp {
+																																op NOT_EQUAL
+																																left Value {
+																																	value 16
+																																}
+																																right Value {
+																																	value 39
+																																}
+																															}
+																														}
+																														left Atom {
+																															measureID "guard50"
+																														}
+																													}
+																													left RelComp {
+																														op NOT_EQUAL
+																														left RelComp {
+																															op EQUAL
+																															left Value {
+																																value 28
+																															}
+																															right Value {
+																																value 48
+																															}
+																														}
+																														right RelComp {
+																															op LESS_THAN
+																															left Value {
+																																value 5
+																															}
+																															right Value {
+																																value 9
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									},
+																									Task {
+																										ID 
+"Task38"},
+																									Sequence {
+																										subworkflows {
+																											Decision {
+																												options {
+																													GuardedWorkflow {
+																														body Task {
+																															ID 
+"Task39"}
+																														guard Atom {
+																															measureID "guard51"
+																														}
+																													},
+																													GuardedWorkflow {
+																														body Task {
+																															ID 
+"Task40"}
+																														guard BoolComp {
+																															op OR
+																															right BoolComp {
+																																op OR
+																																right Atom {
+																																	measureID "guard52"
+																																}
+																																left Atom {
+																																	measureID "guard53"
+																																}
+																															}
+																															left Not {
+																																op not
+																																expr BoolComp {
+																																	op OR
+																																	right Not {
+																																		op not
+																																		expr Atom {
+																																			measureID "guard54"
+																																		}
+																																	}
+																																	left Atom {
+																																		measureID "guard55"
+																																	}
+																																}
+																															}
+																														}
+																													},
+																													GuardedWorkflow {
+																														body Loop {
+																															loop GuardedWorkflow {
+																																body Task {
+																																	ID 
+"Task41"}
+																																guard RelComp {
+																																	op GREATER_EQUAL
+																																	left Atom {
+																																		measureID "guard56"
+																																	}
+																																	right RelComp {
+																																		op GREATER_EQUAL
+																																		left RelComp {
+																																			op LESS_THAN
+																																			left Value {
+																																				value 20
+																																			}
+																																			right Value {
+																																				value 17
+																																			}
+																																		}
+																																		right Atom {
+																																			measureID "guard57"
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																														guard Atom {
+																															measureID "guard58"
+																														}
+																													}
+																												}
+																											},
+																											Decision {
+																												options {
+																													GuardedWorkflow {
+																														body Sequence {
+																															subworkflows {
+																																Decision {
+																																	options {
+																																		GuardedWorkflow {
+																																			body Task {
+																																				ID 
+"Task42"}
+																																			guard RelComp {
+																																				op EQUAL
+																																				left Value {
+																																					value 2
+																																				}
+																																				right RelComp {
+																																					op GREATER_THAN
+																																					left Atom {
+																																						measureID "guard59"
+																																					}
+																																					right RelComp {
+																																						op GREATER_THAN
+																																						left Atom {
+																																							measureID "guard60"
+																																						}
+																																						right Value {
+																																							value 21
+																																						}
+																																					}
+																																				}
+																																			}
+																																		},
+																																		GuardedWorkflow {
+																																			body Task {
+																																				ID 
+"Task43"}
+																																			guard Atom {
+																																				measureID "guard61"
+																																			}
+																																		}
+																																	}
+																																},
+																																Task {
+																																	ID 
+"Task44"},
+																																Task {
+																																	ID 
+"Task45"},
+																																Task {
+																																	ID 
+"Task46"},
+																																Task {
+																																	ID 
+"Task47"}
+																															}
+																														}
+																														guard BoolComp {
+																															op OR
+																															right RelComp {
+																																op NOT_EQUAL
+																																left RelComp {
+																																	op GREATER_THAN
+																																	left Atom {
+																																		measureID "guard62"
+																																	}
+																																	right Value {
+																																		value 38
+																																	}
+																																}
+																																right RelComp {
+																																	op GREATER_THAN
+																																	left Value {
+																																		value 28
+																																	}
+																																	right Value {
+																																		value 32
+																																	}
+																																}
+																															}
+																															left BoolComp {
+																																op AND
+																																right Atom {
+																																	measureID "guard63"
+																																}
+																																left BoolComp {
+																																	op OR
+																																	right Atom {
+																																		measureID "guard64"
+																																	}
+																																	left Atom {
+																																		measureID "guard65"
+																																	}
+																																}
+																															}
+																														}
+																													},
+																													GuardedWorkflow {
+																														body Loop {
+																															loop GuardedWorkflow {
+																																body Task {
+																																	ID 
+"Task48"}
+																																guard RelComp {
+																																	op LESS_THAN
+																																	left Atom {
+																																		measureID "guard66"
+																																	}
+																																	right RelComp {
+																																		op LESS_EQUAL
+																																		left RelComp {
+																																			op GREATER_THAN
+																																			left Value {
+																																				value 15
+																																			}
+																																			right Value {
+																																				value 45
+																																			}
+																																		}
+																																		right RelComp {
+																																			op GREATER_EQUAL
+																																			left Value {
+																																				value 49
+																																			}
+																																			right Value {
+																																				value 17
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																														guard Atom {
+																															measureID "guard67"
+																														}
+																													},
+																													GuardedWorkflow {
+																														body Decision {
+																															options {
+																																GuardedWorkflow {
+																																	body Task {
+																																		ID 
+"Task49"}
+																																	guard BoolComp {
+																																		op OR
+																																		right RelComp {
+																																			op EQUAL
+																																			left Value {
+																																				value 21
+																																			}
+																																			right Value {
+																																				value 19
+																																			}
+																																		}
+																																		left Not {
+																																			op not
+																																			expr Not {
+																																				op not
+																																				expr RelComp {
+																																					op GREATER_THAN
+																																					left RelComp {
+																																						op GREATER_THAN
+																																						left Value {
+																																							value 37
+																																						}
+																																						right Value {
+																																							value 20
+																																						}
+																																					}
+																																					right Value {
+																																						value 45
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																},
+																																GuardedWorkflow {
+																																	body Task {
+																																		ID 
+"Task50"}
+																																	guard Atom {
+																																		measureID "guard68"
+																																	}
+																																}
+																															}
+																														}
+																														guard Atom {
+																															measureID "guard69"
+																														}
+																													}
+																												}
+																											},
+																											Task {
+																												ID 
+"Task51"}
+																										}
+																									},
+																									Loop {
+																										loop GuardedWorkflow {
+																											body Task {
+																												ID 
+"Task52"}
+																											guard Atom {
+																												measureID "guard70"
+																											}
+																										}
+																									}
+																								}
+																							},
+																							Task {
+																								ID 
+"Task53"},
+																							Loop {
+																								loop GuardedWorkflow {
+																									body Task {
+																										ID 
+"Task54"}
+																									guard Atom {
+																										measureID "guard71"
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																	guard Atom {
+																		measureID "guard72"
+																	}
+																}
+															}
+														}
+														guard BoolComp {
+															op AND
+															right Atom {
+																measureID "guard73"
+															}
+															left BoolComp {
+																op OR
+																right Atom {
+																	measureID "guard74"
+																}
+																left BoolComp {
+																	op AND
+																	right Atom {
+																		measureID "guard75"
+																	}
+																	left Not {
+																		op not
+																		expr BoolComp {
+																			op OR
+																			right Not {
+																				op not
+																				expr Atom {
+																					measureID "guard76"
+																				}
+																			}
+																			left Atom {
+																				measureID "guard77"
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													},
+													GuardedWorkflow {
+														body Task {
+															ID 
+"Task55"}
+														guard Atom {
+															measureID "guard78"
+														}
+													}
+												}
+											}
+											guard BoolComp {
+												op AND
+												right RelComp {
+													op LESS_EQUAL
+													left Value {
+														value 20
+													}
+													right Value {
+														value 29
+													}
+												}
+												left RelComp {
+													op GREATER_THAN
+													left Value {
+														value 20
+													}
+													right Value {
+														value 32
+													}
+												}
+											}
+										},
+										GuardedWorkflow {
+											body Task {
+												ID 
+"Task56"}
+											guard Atom {
+												measureID "guard79"
+											}
+										}
+									}
+								},
+								Task {
+									ID 
+"Task57"},
+								Task {
+									ID 
+"Task58"}
+							}
+						},
+						Task {
+							ID 
+"Task59"}
+					}
+				}
+				guard RelComp {
+					op GREATER_EQUAL
+					left Value {
+						value 47
+					}
+					right RelComp {
+						op GREATER_EQUAL
+						left Atom {
+							measureID "guard80"
+						}
+						right Value {
+							value 40
+						}
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Loop {
+					loop GuardedWorkflow {
+						body Task {
+							ID 
+"Task60"}
+						guard RelComp {
+							op NOT_EQUAL
+							left Value {
+								value 38
+							}
+							right Value {
+								value 41
+							}
+						}
+					}
+				}
+				guard Atom {
+					measureID "guard81"
+				}
+			}
+		}
+	}
+}

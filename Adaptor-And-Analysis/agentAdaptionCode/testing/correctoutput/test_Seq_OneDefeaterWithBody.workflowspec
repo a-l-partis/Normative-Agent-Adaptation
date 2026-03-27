@@ -1,0 +1,66 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Task {
+				ID "GoToRoom"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "Wait"
+						}
+						guard Atom {
+							measureID "userPrayingTime"
+						}
+					},
+					GuardedWorkflow {
+						body Decision {
+							options {
+								GuardedWorkflow {
+									body Task {
+										ID "AlertUser"
+									}
+									guard Atom {
+										measureID "userDustAllergy"
+									}
+									
+								},
+								GuardedWorkflow {
+									body Task {
+										ID "Skip"
+									}
+									guard Not {
+										op "not"
+										expr Atom {
+											measureID "userDustAllergy"
+										}
+									}
+								}
+							}
+						}
+						guard Not {
+							op "not"
+							expr Atom {
+								measureID "userPrayingTime"
+							}
+						}
+					}
+				}
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Task {
+				ID "beep"
+			},
+			Task {
+				ID "Dock"
+			}
+		}
+		
+	}
+}

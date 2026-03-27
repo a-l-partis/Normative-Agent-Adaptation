@@ -1,0 +1,9 @@
+def_start
+	event VacuumStart
+	event SetSilentCleaningMode
+	measure daytime : boolean
+def_end
+rule_start
+	Rule1 when VacuumStart and (not daytime) then SetSilentCleaningMode
+	
+rule_end

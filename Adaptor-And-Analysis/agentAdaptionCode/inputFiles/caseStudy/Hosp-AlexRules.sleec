@@ -1,0 +1,12 @@
+def_start
+	event AssessRoomStart
+	event NotifyPatient
+	event CleanFloorStart
+	event SilentFloorCleaning
+	measure personResting : boolean
+	
+def_end
+rule_start
+	Rule1a when AssessRoomStart then NotifyPatient
+	Rule1b when CleanFloorStart and personResting then SilentFloorCleaning
+rule_end

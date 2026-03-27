@@ -1,0 +1,57 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Task {
+				ID "GoToRoom"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "Pause"
+						}
+						guard RelComp {
+							op GREATER_THAN
+							left Atom {
+								measureID "unmappedBumperCount"
+							}
+							right Value {
+								value 10	
+							}
+						}
+					},
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+						}
+						guard Not {
+							op "not"
+							expr RelComp {
+								op GREATER_THAN
+								left Atom {
+									measureID "unmappedBumperCount"
+								}
+								right Value {
+									value 10
+								}
+							}
+						}
+					}
+				}
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Task {
+				ID "beep"
+			},
+			Task {
+				ID "Dock"
+			}
+		}
+		
+	}
+}

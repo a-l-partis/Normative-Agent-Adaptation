@@ -1,0 +1,45 @@
+WorkflowStructure {
+	 workflowspec Loop {
+		loop GuardedWorkflow {
+			body Sequence {
+				subworkflows {
+					Task {
+						ID 
+"Task1"},
+					Task {
+						ID 
+"Task2"},
+					Task {
+						ID 
+"Task3"},
+					Sequence {
+						subworkflows {
+							Task {
+								ID 
+"Task4"},
+							Task {
+								ID 
+"Task5"},
+							Task {
+								ID 
+"Task6"}
+						}
+					},
+					Loop {
+						loop GuardedWorkflow {
+							body Task {
+								ID 
+"Task7"}
+							guard Atom {
+								measureID "guard0"
+							}
+						}
+					}
+				}
+			}
+			guard Atom {
+				measureID "guard1"
+			}
+		}
+	}
+}

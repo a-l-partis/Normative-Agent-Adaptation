@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="workflowspec" nsURI="http://www.example.org/workflowspec" nsPrefix="agent.adaption.workflow.workflowspec">
+  <eClassifiers xsi:type="ecore:EClass" name="WorkflowStructure">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="workflowspec" lowerBound="1"
+        eType="#//Workflow" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Workflow" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Sequence" eSuperTypes="#//Workflow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subworkflows" lowerBound="2"
+        upperBound="-1" eType="#//Workflow" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Task" eSuperTypes="#//Workflow">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Loop" eSuperTypes="#//Workflow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loop" lowerBound="1" eType="#//GuardedWorkflow"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Decision" eSuperTypes="#//Workflow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="options" lowerBound="1"
+        upperBound="-1" eType="#//GuardedWorkflow" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GuardedWorkflow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Workflow"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guard" lowerBound="1" eType="#//MBoolExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MBoolExpr"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Value" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BoolValue" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BoolOp">
+    <eLiterals name="AND"/>
+    <eLiterals name="OR" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RelOp">
+    <eLiterals name="LESS_THAN"/>
+    <eLiterals name="GREATER_THAN" value="1"/>
+    <eLiterals name="NOT_EQUAL" value="2"/>
+    <eLiterals name="LESS_EQUAL" value="3"/>
+    <eLiterals name="GREATER_EQUAL" value="4"/>
+    <eLiterals name="EQUAL" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimeUnit">
+    <eLiterals name="SECONDS"/>
+    <eLiterals name="MINUTES" value="1"/>
+    <eLiterals name="HOURS" value="2"/>
+    <eLiterals name="DAYS" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BoolComp" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="#//BoolOp"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//MBoolExpr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//MBoolExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Not" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//MBoolExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelComp" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="#//RelOp"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//MBoolExpr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//MBoolExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Atom" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="measureID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

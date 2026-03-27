@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: agent.adaption.xtext.workflow.tests
+Bundle-SymbolicName: agent.adaption.xtext.workflow.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: agent.adaption.xtext.workflow.tests
+Bundle-Vendor: My Company
+Export-Package: agent.adaption.xtext.workflow.tests;x-internal=true
+Require-Bundle: agent.adaption.xtext.workflow,
+ agent.adaption.workflow,
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ActivationPolicy: lazy
+Import-Package: org.junit.jupiter.api;version="[5.1.0,6.0.0)",
+ org.junit.jupiter.api.extension;version="[5.1.0,6.0.0)"
+Automatic-Module-Name: agent.adaption.xtext.workflow.tests

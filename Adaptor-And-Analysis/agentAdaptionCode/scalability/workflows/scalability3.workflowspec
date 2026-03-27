@@ -1,0 +1,84 @@
+WorkflowStructure {
+	 workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Task {
+					ID 
+"Task1"}
+				guard BoolComp {
+					op OR
+					right BoolComp {
+						op AND
+						right RelComp {
+							op EQUAL
+							left Value {
+								value 44
+							}
+							right Value {
+								value 11
+							}
+						}
+						left RelComp {
+							op GREATER_THAN
+							left Value {
+								value 8
+							}
+							right RelComp {
+								op GREATER_THAN
+								left Value {
+									value 22
+								}
+								right Value {
+									value 25
+								}
+							}
+						}
+					}
+					left Not {
+						op not
+						expr BoolComp {
+							op AND
+							right Not {
+								op not
+								expr RelComp {
+									op LESS_EQUAL
+									left Value {
+										value 30
+									}
+									right Value {
+										value 23
+									}
+								}
+							}
+							left Atom {
+								measureID "guard0"
+							}
+						}
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID 
+"Task2"}
+				guard BoolComp {
+					op OR
+					right Atom {
+						measureID "guard1"
+					}
+					left Atom {
+						measureID "guard2"
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID 
+"Task3"}
+				guard Atom {
+					measureID "guard3"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,48 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Task {
+				ID "CheckForInput"
+			},
+			Task {
+				ID "Map"
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Task {
+				ID "CheckIfNeedsEmptying"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "AlertNeedsEmptying"
+						}
+						guard Atom {
+							measureID "needsEmptying"
+						}
+					},
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+						}
+						guard Not {
+							op "not"
+							expr Atom {
+								measureID "needsEmptying"
+							}
+						}
+					}
+				}
+			},
+			Task {
+				ID "Dock"
+			}
+		}
+		
+	}
+}

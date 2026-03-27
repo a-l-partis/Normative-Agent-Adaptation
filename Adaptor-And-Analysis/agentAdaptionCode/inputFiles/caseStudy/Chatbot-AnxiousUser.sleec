@@ -1,0 +1,11 @@
+def_start
+	event WarnUser
+	event ReadCustomerGreetingEnd
+	event PassOntoHumanOperatorStart
+	event SetSympatheticTone
+	measure userFrustrated : boolean
+def_end
+rule_start
+	Rule1 when PassOntoHumanOperatorStart then WarnUser
+	Rule2 when ReadCustomerGreetingEnd and userFrustrated then SetSympatheticTone
+rule_end

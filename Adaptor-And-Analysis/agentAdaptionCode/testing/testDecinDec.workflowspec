@@ -1,0 +1,23 @@
+WorkflowStructure {
+	workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Decision {
+					options {
+						GuardedWorkflow {
+							body Task {
+								ID "Vacuum"
+							}
+							guard Atom {
+								measureID "not personPresent"
+							}
+						}
+					}
+				}
+				guard Atom {
+					measureID "needsVacuuming"
+				}
+			}
+		}
+	}
+}

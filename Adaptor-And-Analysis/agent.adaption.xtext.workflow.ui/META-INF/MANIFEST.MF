@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: agent.adaption.xtext.workflow.ui
+Bundle-SymbolicName: agent.adaption.xtext.workflow.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: agent.adaption.xtext.workflow.ui
+Bundle-Activator: agent.adaption.xtext.workflow.ui.internal.WorkflowActivator
+Bundle-Vendor: My Company
+Export-Package: agent.adaption.xtext.workflow.ui.contentassist,
+ agent.adaption.xtext.workflow.ui.internal,
+ agent.adaption.xtext.workflow.ui.quickfix
+Require-Bundle: agent.adaption.xtext.workflow,
+ agent.adaption.xtext.workflow.ide,
+ agent.adaption.workflow,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors;bundle-version="3.14.300",
+ org.eclipse.ui.ide;bundle-version="3.18.500",
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder
+Import-Package: org.apache.log4j
+Automatic-Module-Name: agent.adaption.xtext.workflow.ui
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-21

@@ -1,0 +1,10 @@
+def_start
+	event VacuumStart
+	event AlertUser
+	measure wayBlocked : boolean	
+	measure daytime : boolean
+def_end
+rule_start
+	Rule1 when VacuumStart and (wayBlocked and daytime) then AlertUser
+	
+rule_end

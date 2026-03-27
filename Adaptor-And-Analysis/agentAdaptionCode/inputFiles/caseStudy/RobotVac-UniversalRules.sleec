@@ -1,0 +1,14 @@
+def_start
+	event VacuumStart
+	event WarnAboutToVacuum
+	event CheckForInputEnd
+	event PauseForTenMinutesThenCheckAgain
+	measure personWantsQuiet : boolean
+	measure personDistressed : boolean
+	
+
+def_end
+rule_start
+	Rule1 when VacuumStart and personWantsQuiet then WarnAboutToVacuum
+	Rule2 when CheckForInputEnd and personDistressed then PauseForTenMinutesThenCheckAgain
+rule_end

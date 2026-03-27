@@ -1,0 +1,28 @@
+WorkflowStructure {
+	 workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID 
+"Task1"},
+			Task {
+				ID 
+"Task2"},
+			Sequence {
+				subworkflows {
+					Task {
+						ID 
+"Task3"},
+					Task {
+						ID 
+"Task4"}
+				}
+			},
+			Task {
+				ID 
+"Task5"},
+			Task {
+				ID 
+"Task6"}
+		}
+	}
+}

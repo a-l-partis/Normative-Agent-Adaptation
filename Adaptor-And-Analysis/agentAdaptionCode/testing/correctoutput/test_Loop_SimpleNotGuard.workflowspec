@@ -1,0 +1,39 @@
+WorkflowStructure {
+	workflowspec Loop {
+		loop GuardedWorkflow {
+			body Sequence {
+				subworkflows {
+					Decision {
+						options {
+							GuardedWorkflow {
+								body Task {
+									ID "SetSilentCleaningMode"
+								}
+								guard Not {
+									op "not"
+									expr Atom {
+										measureID "daytime"
+									}
+								}
+							},
+							GuardedWorkflow {
+								body Task {
+									ID "Skip"
+								}
+								guard Atom {
+									measureID "daytime"
+								}
+							}
+						}
+					},
+					Task {
+						ID "Vacuum"
+					}
+				}
+			}
+			guard Atom {
+				measureID "needsVacuuming"
+			}
+		}
+	}
+}

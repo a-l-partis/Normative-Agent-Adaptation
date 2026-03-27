@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AgentAdaptionCode
+Bundle-SymbolicName: agentAdaptionCode
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: agentAdaptionCode
+Require-Bundle: org.eclipse.swt,
+ org.eclipse.jface,
+ circus.robocalc.sleec;bundle-version="1.0.0",
+ agent.adaption.workflow;bundle-version="0.1.0",
+ agent.adaption.xtext.workflow;bundle-version="1.0.0",
+ org.eclipse.emf;bundle-version="2.9.0",
+ org.eclipse.xtext;bundle-version="2.40.0",
+ org.junit;bundle-version="4.13.2",
+ circus.robocalc.sleec
+Automatic-Module-Name: agentAdaptionCode
+Bundle-RequiredExecutionEnvironment: JavaSE-21

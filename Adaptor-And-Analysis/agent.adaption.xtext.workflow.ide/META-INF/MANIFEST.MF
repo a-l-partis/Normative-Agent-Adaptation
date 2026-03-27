@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: agent.adaption.xtext.workflow.ide
+Bundle-SymbolicName: agent.adaption.xtext.workflow.ide;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: agent.adaption.xtext.workflow.ide
+Bundle-Vendor: My Company
+Export-Package: agent.adaption.xtext.workflow.ide.contentassist.antlr,
+ agent.adaption.xtext.workflow.ide.contentassist.antlr.internal
+Require-Bundle: agent.adaption.xtext.workflow,
+ agent.adaption.workflow,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: agent.adaption.xtext.workflow.ide
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,63 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Task {
+				ID "GoToRoom"
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "ReturnToDock"
+						}
+						guard BoolComp {
+							op AND
+							right Not {
+								op "not"
+								expr Atom {
+									measureID "daytime"
+								}
+							}
+							left Atom {
+								measureID wayBlocked
+							}
+						}
+					},
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+						}
+						guard Not {
+							op "not"
+							expr BoolComp {
+								op AND
+								right Not {
+									op "not"
+									expr Atom {
+										measureID daytime
+									}
+								}
+								left Atom {
+									measureID "wayBlocked"
+								}
+							}
+						}
+					}
+				}
+			},
+			Task {
+				ID "beep"
+			},
+			Task {
+				ID "Dock"
+			}
+		}
+		
+	}
+}

@@ -1,0 +1,22 @@
+WorkflowStructure {
+	workflowspec Loop {
+		loop GuardedWorkflow {
+			body Sequence {
+		subworkflows {
+			Task {
+				ID "AlertUser"
+			},
+			Task {
+				ID "Vacuum"
+			},
+			Task {
+				ID "LeaveRoom"
+			}
+		}	
+	}
+			guard Atom {
+				measureID "needsVacuuming"
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+def_start
+	event PauseForTenMinutesThenCheckAgain
+	event AlertUser
+	event PrayingTime
+	event VacuumStart
+	event VacuumEnd
+	event RemapStart
+	event RemindToOpenWindow
+	measure robotStuck : boolean
+	measure prayingTime : boolean
+	
+
+def_end
+rule_start
+	Rule1 when VacuumEnd and robotStuck then AlertUser unless prayingTime then PauseForTenMinutesThenCheckAgain
+	Rule2 when VacuumStart then RemindToOpenWindow
+rule_end

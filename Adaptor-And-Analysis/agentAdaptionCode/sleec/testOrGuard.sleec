@@ -1,0 +1,10 @@
+def_start
+	event VacuumStart
+	event SetSilentCleaningMode
+	measure userSleeping : boolean	
+	measure userDustAllergy : boolean
+def_end
+rule_start
+	Rule1 when VacuumStart and (userSleeping or userDustAllergy) then SetSilentCleaningMode
+	
+rule_end

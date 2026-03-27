@@ -1,0 +1,12 @@
+def_start
+	event CheckIfNeedsEmptyingEnd
+	event PauseUntilEmptied
+	event VacuumStart
+	event RemindToOpenWindow
+	measure needsEmptying : boolean
+
+def_end
+rule_start
+	Rule1 when CheckIfNeedsEmptyingEnd and needsEmptying then PauseUntilEmptied
+	Rule2 when VacuumStart then RemindToOpenWindow
+rule_end

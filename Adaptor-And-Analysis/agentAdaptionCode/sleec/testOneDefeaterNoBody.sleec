@@ -1,0 +1,10 @@
+def_start
+	event VacuumStart
+	event AlertUser
+	measure userDustAllergy : boolean
+	measure userPrayingTime : boolean
+def_end
+rule_start
+	Rule1 when VacuumStart and userDustAllergy then AlertUser unless userPrayingTime
+	
+rule_end

@@ -1,0 +1,29 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "Undock"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "Vacuum"
+							}
+							guard Atom {
+								measureID "needsVacuuming"
+						}
+					},
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+							}
+						guard Atom {
+							measureID "not needsVacuuming"
+						}
+					}
+				}
+			}
+		}
+	}
+}

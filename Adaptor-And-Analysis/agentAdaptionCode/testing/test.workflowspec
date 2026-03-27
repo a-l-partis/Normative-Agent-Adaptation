@@ -1,0 +1,38 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "AssessRoom"
+			},
+			Task {
+				ID "DustFurniture"
+			},
+			Decision {
+				options {
+					GuardedWorkflow {
+						body Task {
+							ID "CleanFloor"
+						}
+						guard Atom {
+							measureID "floorNeedsCleaning"
+						}
+					},
+					GuardedWorkflow {
+						body Task {
+							ID "Skip"
+							}
+						guard Not {
+							op "NOT"
+							expr Atom {
+								measureID "floorNeedsCleaning"
+							}
+						}
+					}
+				}
+			},
+			Task {
+				ID "CleanFLoor"
+			}
+		}
+	}
+}

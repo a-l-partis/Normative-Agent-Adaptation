@@ -1,0 +1,73 @@
+WorkflowStructure {
+	 workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Task {
+					ID 
+"Task1"}
+				guard RelComp {
+					op EQUAL
+					left Value {
+						value 39
+					}
+					right Value {
+						value 36
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID 
+"Task2"}
+				guard Not {
+					op not
+					expr Atom {
+						measureID "guard0"
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Decision {
+					options {
+						GuardedWorkflow {
+							body Task {
+								ID 
+"Task3"}
+							guard Not {
+								op not
+								expr Atom {
+									measureID "guard1"
+								}
+							}
+						},
+						GuardedWorkflow {
+							body Task {
+								ID 
+"Task4"}
+							guard RelComp {
+								op GREATER_EQUAL
+								left Value {
+									value 3
+								}
+								right Value {
+									value 17
+								}
+							}
+						},
+						GuardedWorkflow {
+							body Task {
+								ID 
+"Task5"}
+							guard Atom {
+								measureID "guard2"
+							}
+						}
+					}
+				}
+				guard Atom {
+					measureID "guard3"
+				}
+			}
+		}
+	}
+}

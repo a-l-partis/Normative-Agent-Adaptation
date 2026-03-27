@@ -1,0 +1,90 @@
+WorkflowStructure {
+	 workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID 
+"Task1"},
+			Task {
+				ID 
+"Task2"},
+			Loop {
+				loop GuardedWorkflow {
+					body Decision {
+						options {
+							GuardedWorkflow {
+								body Sequence {
+									subworkflows {
+										Task {
+											ID 
+"Task3"},
+										Task {
+											ID 
+"Task4"},
+										Task {
+											ID 
+"Task5"}
+									}
+								}
+								guard RelComp {
+									op GREATER_THAN
+									left Atom {
+										measureID "guard0"
+									}
+									right Atom {
+										measureID "guard1"
+									}
+								}
+							},
+							GuardedWorkflow {
+								body Loop {
+									loop GuardedWorkflow {
+										body Sequence {
+											subworkflows {
+												Task {
+													ID 
+"Task6"},
+												Task {
+													ID 
+"Task7"},
+												Task {
+													ID 
+"Task8"}
+											}
+										}
+										guard Not {
+											op not
+											expr Atom {
+												measureID "guard2"
+											}
+										}
+									}
+								}
+								guard Atom {
+									measureID "guard3"
+								}
+							}
+						}
+					}
+					guard Not {
+						op not
+						expr BoolComp {
+							op AND
+							right RelComp {
+								op LESS_THAN
+								left Value {
+									value 11
+								}
+								right Atom {
+									measureID "guard4"
+								}
+							}
+							left Atom {
+								measureID "guard5"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

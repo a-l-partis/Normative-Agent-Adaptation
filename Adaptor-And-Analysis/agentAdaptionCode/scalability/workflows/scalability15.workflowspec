@@ -1,0 +1,138 @@
+WorkflowStructure {
+	 workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Task {
+					ID 
+"Task1"}
+				guard Atom {
+					measureID "guard0"
+				}
+			},
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Task {
+							ID 
+"Task2"},
+						Task {
+							ID 
+"Task3"},
+						Task {
+							ID 
+"Task4"},
+						Task {
+							ID 
+"Task5"},
+						Task {
+							ID 
+"Task6"},
+						Task {
+							ID 
+"Task7"}
+					}
+				}
+				guard BoolComp {
+					op AND
+					right Atom {
+						measureID "guard1"
+					}
+					left BoolComp {
+						op OR
+						right Atom {
+							measureID "guard2"
+						}
+						left RelComp {
+							op GREATER_THAN
+							left Value {
+								value 41
+							}
+							right Value {
+								value 12
+							}
+						}
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Loop {
+					loop GuardedWorkflow {
+						body Sequence {
+							subworkflows {
+								Task {
+									ID 
+"Task8"},
+								Task {
+									ID 
+"Task9"},
+								Task {
+									ID 
+"Task10"},
+								Task {
+									ID 
+"Task11"},
+								Task {
+									ID 
+"Task12"}
+							}
+						}
+						guard Atom {
+							measureID "guard3"
+						}
+					}
+				}
+				guard Atom {
+					measureID "guard4"
+				}
+			},
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Task {
+							ID 
+"Task13"},
+						Task {
+							ID 
+"Task14"}
+					}
+				}
+				guard Atom {
+					measureID "guard5"
+				}
+			},
+			GuardedWorkflow {
+				body Loop {
+					loop GuardedWorkflow {
+						body Task {
+							ID 
+"Task15"}
+						guard BoolComp {
+							op AND
+							right Not {
+								op not
+								expr Atom {
+									measureID "guard6"
+								}
+							}
+							left BoolComp {
+								op OR
+								right Atom {
+									measureID "guard7"
+								}
+								left Not {
+									op not
+									expr Atom {
+										measureID "guard8"
+									}
+								}
+							}
+						}
+					}
+				}
+				guard Atom {
+					measureID "guard9"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+def_start
+	event VacuumEnd
+	event SetQuietCleaningMode
+	event WarnUser
+	event PauseForTenMinutes
+	measure emergency : boolean
+	event ReturnToDock
+	measure userDistressed : boolean
+	measure dustAllergy : boolean
+	
+def_end
+rule_start
+	Rule1 when VacuumEnd then SetQuietCleaningMode
+	unless dustAllergy then WarnUser
+	unless userDistressed then PauseForTenMinutes
+	unless emergency then ReturnToDock
+rule_end

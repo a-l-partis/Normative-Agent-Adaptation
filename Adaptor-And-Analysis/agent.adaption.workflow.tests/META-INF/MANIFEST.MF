@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: agent.adaption.workflow.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: agent.adaption.workflow.tests
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: workflowspec.tests
+Require-Bundle: org.eclipse.core.runtime,
+ agent.adaption.workflow;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;visibility:=reexport,
+ org.junit;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: agent.adaption.workflow.tests
