@@ -1,4 +1,4 @@
-<h1>Adaptation and RoboSim conversion Executable</h1>
+<h1>Adaptation and RoboSim Conversion Executable</h1>
 
 ### Requirements ###
 
