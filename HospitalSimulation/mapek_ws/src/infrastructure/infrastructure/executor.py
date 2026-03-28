@@ -31,8 +31,8 @@ class Executor(MAPEK_Node):
         subprocess.run(['ros2', 'lifecycle', 'set', '/wfSTM', 'shutdown'])
 
         self.get_logger().info('Starting new controller.')
-        # subprocess.Popen(['bash', 'tools/restart.sh',pkg_name])
-        os.system('bash tools/restart.sh '+pkg_name)
+        subprocess.Popen(['bash', 'tools/restart.sh',pkg_name])
+        # os.system('bash tools/restart.sh '+pkg_name)
 
         self.send_output()
 

@@ -31,6 +31,10 @@ class RP: public rclcpp::Node {
   bool pause = false;
   bool pausedForEmptying = false;
 
+  rclcpp::CallbackGroup::SharedPtr callback_group_subscribers;
+  rclcpp::CallbackGroup::SharedPtr callback_group_timers;
+  rclcpp::CallbackGroup::SharedPtr callback_group_clients;
+
   public:
     using Undock = irobot_create_msgs::action::Undock;
     using GoalHandleUndock = rclcpp_action::ClientGoalHandle<Undock>;
@@ -41,7 +45,15 @@ class RP: public rclcpp::Node {
     
 
     RP(): Node("RP") {
-    
+      
+
+      callback_group_subscribers = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+      callback_group_timers = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+      callback_group_clients = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+
+      auto sub1_opt = rclcpp::SubscriptionOptions();
+      sub1_opt.callback_group = callback_group_subscribers;
+
     
       // Platform inputs
       
@@ -50,15 +62,15 @@ class RP: public rclcpp::Node {
       personResting_pub = this->create_publisher<std_msgs::msg::Bool>("personResting", 10);
       
       
-      undock_client_ptr_ = rclcpp_action::create_client<irobot_create_msgs::action::Undock>(this,"undock");
-      dock_client_ptr_ = rclcpp_action::create_client<irobot_create_msgs::action::Dock>(this,"dock");
+      undock_client_ptr_ = rclcpp_action::create_client<irobot_create_msgs::action::Undock>(this,"undock", callback_group_clients);
+      dock_client_ptr_ = rclcpp_action::create_client<irobot_create_msgs::action::Dock>(this,"dock", callback_group_clients);
 
       auto AssessRoomStart_callback = [this](hosppatient1_interface::msg::AssessRoomStart msg) -> void {
 
         RCLCPP_INFO(this->get_logger(), "AssessRoomStart call received by platform.");
         assessroom();
       };
-      AssessRoomStart = this->create_subscription<hosppatient1_interface::msg::AssessRoomStart>("AssessRoomStart", 10, AssessRoomStart_callback);
+      AssessRoomStart = this->create_subscription<hosppatient1_interface::msg::AssessRoomStart>("AssessRoomStart", 10, AssessRoomStart_callback, sub1_opt);
       AssessRoomEnd = this->create_publisher<std_msgs::msg::Bool>("AssessRoomEnd",10);
 
       auto DustFurnitureStart_callback = [this](hosppatient1_interface::msg::DustFurnitureStart msg) -> void {
@@ -66,7 +78,7 @@ class RP: public rclcpp::Node {
         RCLCPP_INFO(this->get_logger(), "DustFurnitureStart call received by platform.");
         dustfurniture();
       };
-      DustFurnitureStart = this->create_subscription<hosppatient1_interface::msg::DustFurnitureStart>("DustFurnitureStart", 10, DustFurnitureStart_callback);
+      DustFurnitureStart = this->create_subscription<hosppatient1_interface::msg::DustFurnitureStart>("DustFurnitureStart", 10, DustFurnitureStart_callback, sub1_opt);
       DustFurnitureEnd = this->create_publisher<std_msgs::msg::Bool>("DustFurnitureEnd",10);
       
       auto CleanFloorStart_callback = [this](hosppatient1_interface::msg::CleanFloorStart msg) -> void {
@@ -74,7 +86,7 @@ class RP: public rclcpp::Node {
         RCLCPP_INFO(this->get_logger(), "CleanFloorStart call received by platform.");
         cleanfloor();
       };
-      CleanFloorStart = this->create_subscription<hosppatient1_interface::msg::CleanFloorStart>("CleanFloorStart", 10, CleanFloorStart_callback);
+      CleanFloorStart = this->create_subscription<hosppatient1_interface::msg::CleanFloorStart>("CleanFloorStart", 10, CleanFloorStart_callback, sub1_opt);
       CleanFloorEnd = this->create_publisher<std_msgs::msg::Bool>("CleanFloorEnd",10);
 
       auto DisplayCleaningPlanStart_callback = [this](hosppatient1_interface::msg::DisplayCleaningPlanStart msg) -> void {
@@ -82,7 +94,7 @@ class RP: public rclcpp::Node {
         RCLCPP_INFO(this->get_logger(), "DisplayCleaningPlanStart call received by platform.");
         displaycleaningplan();
       };
-      DisplayCleaningPlanStart = this->create_subscription<hosppatient1_interface::msg::DisplayCleaningPlanStart>("DisplayCleaningPlanStart", 10, DisplayCleaningPlanStart_callback);
+      DisplayCleaningPlanStart = this->create_subscription<hosppatient1_interface::msg::DisplayCleaningPlanStart>("DisplayCleaningPlanStart", 10, DisplayCleaningPlanStart_callback, sub1_opt);
       DisplayCleaningPlanEnd = this->create_publisher<std_msgs::msg::Bool>("DisplayCleaningPlanEnd",10);
       
       auto NotifyPatientStart_callback = [this](hosppatient1_interface::msg::NotifyPatientStart msg) -> void {
@@ -90,7 +102,7 @@ class RP: public rclcpp::Node {
         RCLCPP_INFO(this->get_logger(), "NotifyPatientStart call received by platform.");
         notifypatient();
       };
-      NotifyPatientStart = this->create_subscription<hosppatient1_interface::msg::NotifyPatientStart>("NotifyPatientStart", 10, NotifyPatientStart_callback);
+      NotifyPatientStart = this->create_subscription<hosppatient1_interface::msg::NotifyPatientStart>("NotifyPatientStart", 10, NotifyPatientStart_callback, sub1_opt);
       NotifyPatientEnd = this->create_publisher<std_msgs::msg::Bool>("NotifyPatientEnd",10);
       
       auto SetSilentFloorCleaningStart_callback = [this](hosppatient1_interface::msg::SetSilentFloorCleaningStart msg) -> void {
@@ -98,7 +110,7 @@ class RP: public rclcpp::Node {
         RCLCPP_INFO(this->get_logger(), "SetSilentFloorCleaningStart call received by platform.");
         setsilentfloorcleaning();
       };
-      SetSilentFloorCleaningStart = this->create_subscription<hosppatient1_interface::msg::SetSilentFloorCleaningStart>("SetSilentFloorCleaningStart", 10, SetSilentFloorCleaningStart_callback);
+      SetSilentFloorCleaningStart = this->create_subscription<hosppatient1_interface::msg::SetSilentFloorCleaningStart>("SetSilentFloorCleaningStart", 10, SetSilentFloorCleaningStart_callback, sub1_opt);
       SetSilentFloorCleaningEnd = this->create_publisher<std_msgs::msg::Bool>("SetSilentFloorCleaningEnd",10);
 
       LED = this->create_publisher<turtlebot4_msgs::msg::UserLed>("hmi/led",10);
@@ -118,7 +130,8 @@ class RP: public rclcpp::Node {
         "/hmi/buttons", 
         rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile(),
         //10,         
-        Buttons_callback        
+        Buttons_callback, sub1_opt
+                
       );        
     }
     
@@ -187,13 +200,13 @@ class RP: public rclcpp::Node {
           //Callback sends move messages
         if(!assess_timer) {
             assess_timer = this->create_wall_timer(
-            50ms, std::bind(&RP::assess_timer_motion_callback, this));
+            50ms, std::bind(&RP::assess_timer_motion_callback, this), callback_group_timers);
         }
           //Callback stops execution - cancels both timers
           // turns the LED to false.
         if(!finish_assess_timer) {
             finish_assess_timer = this->create_wall_timer(
-            15s, std::bind(&RP::assess_timer_finish_callback, this));
+            15s, std::bind(&RP::assess_timer_finish_callback, this), callback_group_timers);
  
       	}
     }
@@ -586,7 +599,11 @@ rclcpp::Subscription<hosppatient1_interface::msg::NotifyPatientStart>::SharedPtr
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<RP>());
+  rclcpp::executors::MultiThreadedExecutor executor;
+  auto node = std::make_shared<RP>();
+  executor.add_node(node);
+  executor.spin();
+
   rclcpp::shutdown();
   return 0;
 }

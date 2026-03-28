@@ -24,8 +24,8 @@ def generate_launch_description():
             package='infrastructure',
             executable='executor',
             name='executor'),
-        # launch_ros.actions.Node(
-        #     package='platform',
-        #     executable='RP',
-        #     name='RP'),
+        launch_ros.actions.Node(
+            package='platform',
+            executable='RP',
+            name='RP'),
     ])
