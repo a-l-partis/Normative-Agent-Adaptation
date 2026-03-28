@@ -14,7 +14,70 @@ The adapted workflow file will be created in the same directory under the file n
 
 <h1>MAPE-K and the Turtlebot Simulation</h1>
 
-Our reusable instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example . A video shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop 
+Our reusable instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example . A video shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop to produce code that interfaces with platform RP to run the adapted workflow.
+
+Platform Mapping:
+AssessRoom – Undock and rotate
+DustFurniture - solidly lit green LED1
+CleanFloor - Rotate
+DisplayCleaningPlan - LED2 green blinking
+NotifyPatient - Blinking LED2 red
+SetSilentFloorCleaning - LED2 solidly lit green
+
+set floorNeedsCleaning - button 1
+set personResting - button 2
+
+The reusable MAPE-K implementation can be found at HospitalSimulation/mapek_ws/src/infrastructure/infrastructure.
+
+Now we provide instructions on setup:
+
+
+### Development Platform Requirements ###
+
+* ROS2 Jazzy
+* Gazebo Harmonic
+* Turtlebot4 packages
+* Python package: empy, catkin_pkg, lark, numpy, tinydb
+
+
+### Setup ###
+
+If you have Docker and VS Code installed, you can use the following instructions to spin up
+the Dev Container configuration contained in this repository to get started with ROS2.
+
+1. Open VS Code
+2. Ensure that the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) has been installed.
+3. In VS Code, open the command palette (eg. using the key combination `Shift+P` on Windows, or `Command+Shift+P`) and type `Dev Containers: Clone Repository in Container Volume`.
+3. Then select `GitHub` and select this repository's name/URL.
+4. Wait for the container to finish building.
+
+The components can be run via vscode terminals. In order to interface with the turtlebot 4 implementation, you must source your ROS implementation in all terminals that you plan to use:
+
+```
+source /opt/ros/<Your ROS Version>/setup.bash
+```
+(Your ROS installation my vary)
+
+You must also source the implementation of the platform in all terminals:
+```
+source install/setup.bash
+```
+
+To install gazebo and launch the turtlebot, follow the instructions corresponding to your ROS version from the turtlebot user manual: https://turtlebot.github.io/turtlebot4-user-manual/software/simulation.html
+
+Once the turtlebot is set up in gazebo, you can launch the MAPE-K loop with 
+
+```
+./build.sh
+```
+
+And trigger the adaptation, code generation and deployment (to Patient1's rules) like this:
+
+```
+./test.sh
+```
+
+Once the MAPE-K cycle has run, the simulation of the turtlebot executing the generated code will proceed.
 
 
 <h1>Adaptor And Analysis Code</h1>
