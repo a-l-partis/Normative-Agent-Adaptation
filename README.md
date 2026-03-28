@@ -12,6 +12,11 @@ Download the agent-adaption.jar release from this repository. Place it in the sa
 
 The adapted workflow file will be created in the same directory under the file name &lt;YourOutputFileName&gt;.workflowspec
 
+<h1>MAPE-K and the Turtlebot Simulation</h1>
+
+Our reusable instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example . A video shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop 
+
+
 <h1>Adaptor And Analysis Code</h1>
 
 Instructions to Install the Eclipse-Based Java 21 Version of the Planning Pipeline, Including Unit Tests and Scalability Analysis Code
