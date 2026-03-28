@@ -29,8 +29,6 @@ set personResting - button 2
 
 The reusable MAPE-K implementation can be found at HospitalSimulation/mapek_ws/src/infrastructure/infrastructure.
 
-Now we provide instructions on setup:
-
 
 ### Development Platform Requirements ###
 
@@ -40,7 +38,7 @@ Now we provide instructions on setup:
 * Python package: empy, catkin_pkg, lark, numpy, tinydb
 
 
-### Setup ###
+### Simulation Setup ###
 
 If you have Docker and VS Code installed, you can use the following instructions to spin up
 the Dev Container configuration contained in this repository to get started with ROS2.
