@@ -1,0 +1,95 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - good morning
+    - good evening
+    - hi there
+    - hey bot
+    - howdy
+    - greetings
+    - what's up
+
+- intent: affirm
+  examples: |
+    - yes
+    - yep
+    - yeah
+    - sure
+    - ok
+    - okay
+    - please do
+    - go ahead
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - nah
+    - not now
+
+- intent: ask_question
+  examples: |
+    - Where is my order?
+    - What time do you close?
+    - How can I return my item?
+    - I need help
+    - Track my order
+    - Is my delivery on the way?
+    - What are your opening hours?
+    - When do you open?
+    - I'd like to return something
+    - I want to talk to a real person
+    - Can you connect me to a human?
+    - Give me a representative
+    - I’d like to speak to someone
+    - Can you help me?
+    - Help me out
+    - What time does the store open?
+    - What’s your return policy?
+    - Where can I find help?
+    - I want to talk to support
+    - Can I get some assistance?
+    - How long do returns take?
+    - Are returns free?
+    - When will my package arrive?
+
+- intent: thanks
+  examples: |
+    - thanks
+    - thank you
+    - thx
+    - tnx
+    - appreciate it
+    - cheers
+    - many thanks
+    - thanks a lot
+    - thank you very much
+    - much appreciated
+    - big thanks
+    - thanks for your help
+    - thank you so much
+
+- intent: goodbye
+  examples: |
+    - that's all
+    - no thanks
+    - nothing else
+    - I'm good
+    - I'm done
+    - that'll be all
+    - no further questions
+    - thank you, that's all
+    - bye
+    - thanks, goodbye
+
+- intent: set_workflow
+  examples: |
+    - use Chatbot
+    - use Universal
+    - use AnxiousUser
+    - use FirstTimeUser

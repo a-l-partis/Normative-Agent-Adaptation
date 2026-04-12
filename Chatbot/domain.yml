@@ -1,0 +1,50 @@
+version: "3.1"
+
+intents:
+  - greet
+  - ask_question
+  - thanks
+  - goodbye
+  - set_workflow
+  - nlu_fallback
+  - resume_bot
+  - affirm
+  - deny
+
+responses:
+  utter_default:
+    - text: "I'm not sure how to answer that."
+
+slots:
+  workflow_override:
+    type: text
+    influence_conversation: false
+    mappings: [{ type: custom }]
+  
+  active_workflow:
+    type: text
+    influence_conversation: false
+    mappings: [{ type: custom }]
+
+  wf_state:
+    type: text
+    influence_conversation: false
+    mappings: [{ type: custom }]
+
+  order_number:
+    type: text
+    influence_conversation: false
+    mappings: [{ type: custom }]
+
+  handoff:
+    type: bool
+    influence_conversation: false
+    mappings: [{ type: custom }]
+
+  newUser:
+    type: bool
+    influence_conversation: false
+    mappings: [{ type: custom }]
+
+actions:
+  - action_handle_question

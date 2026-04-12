@@ -1,0 +1,128 @@
+WorkflowStructure {
+	workflowspec Sequence {
+		subworkflows {
+			Task {
+				ID "ReadCustomerGreeting"
+			},
+			Task {
+				ID "ReadResponse"
+			},
+			Loop {
+				loop GuardedWorkflow {
+					body Sequence {
+						subworkflows {
+							Task {
+								ID "ProvideHelpOptions"
+							},
+							Task {
+								ID "ReadResponse"
+							},
+							Task {
+								ID "AskForOrderNum"
+							},
+							Task {
+								ID "ReadResponse"
+							},
+							Decision {
+								options {
+									GuardedWorkflow {
+										body Task {
+											ID "PassOntoHumanOperator"
+										}
+										guard Not {
+											op "not"
+											expr Atom {
+												measureID "validOrderNum"
+										
+											}
+										}
+									},
+									GuardedWorkflow {
+										body Decision {
+											options {
+												GuardedWorkflow {
+													body Sequence {
+														subworkflows {
+															Task {
+																ID "provideOrderStatus"
+															},
+															Task {
+																ID "AskIfCanHelpWithAnythingElse"
+															},
+															Task {
+																ID "ReadResponse"
+															}
+														}
+													}
+													guard Atom {
+														measureID "option:GetOrderStatus"
+													}
+												},
+												GuardedWorkflow {
+													body Decision {
+														options {
+															GuardedWorkflow {
+																body Sequence {
+																	subworkflows {
+																		Task {
+																			ID "ExplainCantReturn"
+																		},
+																		Task {
+																			ID "AskIfCanHelpWithAnythingElse"
+																		},
+																		Task {
+																			ID "ReadResponse"
+																		}
+																	}
+																}
+																guard Not {
+																	op "not"
+																	expr Atom {
+																		measureID "canReturn"
+																	}
+																}
+															},
+															
+															GuardedWorkflow {
+																body Sequence {
+																	subworkflows {
+																		Task {
+																			ID "ExplainHowToReturn"
+																		},
+																		Task {
+																			ID "AskIfCanHelpWithAnythingElse"
+																		},
+																		Task {
+																			ID "ReadResponse"
+																		}
+																	}
+																}
+																guard Atom {
+																	measureID "canReturn"
+																}
+															}
+														}
+													}
+													guard Atom {
+														measureID "option:ReturnProduct"
+													}
+												}
+											}
+										}
+										guard Atom {
+											measureID "validOrderNum"
+										}
+									}
+									
+								}
+							}
+						}
+					}
+					guard Atom {
+						measureID "helpNeeded"
+					}
+				}
+			}
+		}
+	}
+}

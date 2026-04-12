@@ -1,0 +1,11 @@
+def_start
+	event RedactInformation
+	event ReadResponseEnd
+	event ExplainCantReturnEnd
+	event ExplainLegalRights
+	measure personalInfo : boolean
+def_end
+rule_start
+	Rule0 when ReadResponseEnd and personalInfo then RedactInformation
+	Rule1 when ExplainCantReturnEnd then ExplainLegalRights
+rule_end

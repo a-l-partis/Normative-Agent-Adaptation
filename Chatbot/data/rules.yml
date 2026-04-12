@@ -1,0 +1,47 @@
+version: "3.1"
+
+rules:
+- rule: Handle greetings
+  steps:
+    - intent: greet
+    - action: action_handle_question
+
+- rule: Handle thanks
+  steps:
+    - intent: thanks
+    - action: action_handle_question
+
+- rule: Handle goodbyes
+  steps:
+    - intent: goodbye
+    - action: action_handle_question
+
+- rule: Handle affirmations
+  steps:
+    - intent: affirm
+    - action: action_handle_question
+
+- rule: Handle denials
+  steps:
+    - intent: deny
+    - action: action_handle_question
+
+- rule: Handle questions / general requests
+  steps:
+    - intent: ask_question
+    - action: action_handle_question
+
+- rule: Handle runtime workflow switch
+  steps:
+    - intent: set_workflow
+    - action: action_handle_question
+
+- rule: Fallback to custom action
+  steps:
+    - intent: nlu_fallback
+    - action: action_handle_question
+
+- rule: Resume the bot after handoff
+  steps:
+    - intent: resume_bot
+    - action: action_handle_question

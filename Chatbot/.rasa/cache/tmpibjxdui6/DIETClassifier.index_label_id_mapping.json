@@ -1,0 +1,9 @@
+{
+  "0": "affirm",
+  "1": "ask_question",
+  "2": "deny",
+  "3": "goodbye",
+  "4": "greet",
+  "5": "set_workflow",
+  "6": "thanks"
+}
