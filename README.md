@@ -40,19 +40,10 @@ The reusable MAPE-K implementation can be found at HospitalSimulation/mapek_ws/s
 
 ### Simulation Setup ###
 
-If you have Docker and VS Code installed, you can use the following instructions to spin up
-the Dev Container configuration contained in this repository to get started with ROS2.
-
-1. Open VS Code
-2. Ensure that the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) has been installed.
-3. In VS Code, open the command palette (eg. using the key combination `Shift+P` on Windows, or `Command+Shift+P`) and type `Dev Containers: Clone Repository in Container Volume`.
-3. Then select `GitHub` and select this repository's name/URL.
-4. Wait for the container to finish building.
-
-The components can be run via vscode terminals. In order to interface with the turtlebot 4 implementation, you must source your ROS implementation in all terminals that you plan to use:
+Once the environment is set up with the above requirements, the components can be run via vscode terminals. In order to interface with the turtlebot 4 implementation, you must source your ROS implementation in all terminals that you plan to use:
 
 ```
-source /opt/ros/<Your ROS Version>/setup.bash
+source /opt/ros/jazzy/setup.bash
 ```
 (Your ROS installation my vary)
 
@@ -61,8 +52,11 @@ You must also source the implementation of the platform in all terminals:
 source install/setup.bash
 ```
 
-To install gazebo and launch the turtlebot, follow the instructions corresponding to your ROS version from the turtlebot user manual: https://turtlebot.github.io/turtlebot4-user-manual/software/simulation.html
+To install gazebo and launch the turtlebot:
 
+```
+ros2 launch turtlebot4_gz_bringup turtlebot4_gz.launch.py
+```
 Once the turtlebot is set up in gazebo, you can launch the MAPE-K loop with 
 
 ```
