@@ -17,13 +17,18 @@ class Analyser():
         currentUser = kb.get_current_user()
         activeUser = kb.get_active_user()
         currentRules = kb.get_rules(currentUser)
+        activeRules = kb.get_rules(activeUser)
+
+        if len(currentRules.rules) == 0:
+            return True
 
         if currentRules == None:
             return False
         currentRules = currentRules.rules
 
 
-        activeRules = kb.get_rules(activeUser)
+
+        
         if activeRules == None:
             return False
         

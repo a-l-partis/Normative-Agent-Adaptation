@@ -66,14 +66,6 @@ def wait_for_workflow_update(active_workflow: Path, initial_mtime: Optional[floa
         time.sleep(0.2)
     return False
 
-
-def workflow_is_fresh_enough(active_workflow: Path, marker_mtime: Optional[float]) -> bool:
-    workflow_mtime = get_mtime(active_workflow)
-    if workflow_mtime is None or marker_mtime is None:
-        return False
-    return workflow_mtime >= marker_mtime
-
-
 def read_client_info(client_info: Path) -> Optional[str]:
     try:
         if not client_info.exists():
@@ -82,24 +74,6 @@ def read_client_info(client_info: Path) -> Optional[str]:
         return content or None
     except OSError:
         return None
-
-
-def client_has_extra_rules(project_root: Path, client_name: str) -> bool:
-    client_dir = project_root / "clients" / client_name
-    if not client_dir.is_dir():
-        return False
-
-    json_files = sorted(client_dir.glob("*.json"))
-    if not json_files:
-        return False
-
-    try:
-        profile_value = json_files[0].read_text(encoding="utf-8").strip()
-        profile_value = profile_value.replace('"', "").strip()
-        return profile_value not in ("", "*")
-    except OSError:
-        return False
-
 
 def main():
     print_header()
@@ -150,7 +124,6 @@ def main():
         sys.exit(1)
 
     print("🔄 Loading workflow")
-    print("✅ Found common SLEEC rules")
 
     startup_mtime = get_mtime(active_workflow)
 
@@ -167,18 +140,12 @@ def main():
     elif active_workflow.exists():
         startup_ready = True
 
-    if startup_ready:
-        print("🧠 Workflow adapted")
-    else:
-        print("⚠️  Initial workflow update not detected")
-
     print("📡 Waiting for client conversations...")
     print("-" * 48)
 
     try:
         while True:
             if client_info.exists():
-                client_info_mtime = get_mtime(client_info)
                 client_name = read_client_info(client_info)
 
                 try:
@@ -187,25 +154,8 @@ def main():
                     pass
 
                 if client_name:
-                    print(f"\n📥 Connection requested at {time.strftime('%H:%M:%S')}\n")
+                    print(f"\n📥 Connection requested at {time.strftime('%H:%M:%S')}")
                     print(f"👤 Connected '{client_name}'")
-
-                    has_extra_rules = client_has_extra_rules(project_root, client_name)
-
-                    if has_extra_rules:
-                        print(f"✅ Found '{client_name}' SLEEC rules")
-
-                        if workflow_is_fresh_enough(active_workflow, client_info_mtime):
-                            print(f"🧠 Workflow adapted for '{client_name}'")
-                        else:
-                            initial_mtime = get_mtime(active_workflow)
-
-                            if wait_for_workflow_update(active_workflow, initial_mtime, timeout=8):
-                                print(f"🧠 Workflow adapted for '{client_name}'")
-                            else:
-                                print(f"⚠️  Workflow update not detected for '{client_name}'")
-                    else:
-                        print(f"ℹ️  No SLEEC rules found for '{client_name}'")
 
             time.sleep(0.5)
 

@@ -52,11 +52,6 @@ class KnowledgeBase():
         ### need to store user state and rules
         db.insert
         
-        ### Common Rules ###
-        
-        db.insert({'type':'rule', 'name':'c1', 'def':'when ExplainCantReturnEnd then ExplainLegalRights'})
-        db.insert({'type':'rule', 'name':'c2', 'def':'when ReadResponseEnd and personalInfo then RedactInformation'})
-        
         ### FirstTimeUser Rules ###
         
         db.insert({'type':'rule', 'name':'f1', 'def':'when ReadCustomerGreetingEnd and newUser then SetMoreThoroughExplanationMode'})
@@ -74,13 +69,14 @@ class KnowledgeBase():
         
         db.insert({'type': 'user', 'name': 'AnxiousUser', 'rules': ['a1','a2'], 'events': ['ReadCustomerGreetingEnd', 'SetSympatheticTone', 'PassOntoHumanOperatorStart', 'WarnUser'], 'measures': ['userFrustrated : boolean']})
 
-        db.insert({'type': 'user', 'name': '*', 'rules': ['c1','c2'], 'events': ['ExplainCantReturnEnd', 'ExplainLegalRights', 'ReadResponseEnd', 'RedactInformation'], 'measures': ['personalInfo : boolean']})
+        db.insert({'type': 'user', 'name': '*', 'rules': [], 'events': [], 'measures': []})
+
 
         db.insert({'type': 'user', 'name': '-', 'rules': [], 'events': [], 'measures': []})
 
         ### setup ###
 
-        db.insert({'type': 'state', 'currentUser': '-', 'package': '','activeUser':'-'})
+        db.insert({'type': 'state', 'currentUser': '*', 'package': '','activeUser':'-'})
 
 class RuleData():
     def __init__(self,rules,events,measures):

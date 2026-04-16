@@ -1,11 +1,11 @@
 def_start
-	event RedactInformation
-	event ReadResponseEnd
-	event ExplainCantReturnEnd
-	event ExplainLegalRights
-	measure personalInfo : boolean
+	event ReadCustomerGreetingEnd
+	event WarnUser
+	event PassOntoHumanOperatorStart
+	event SetSympatheticTone
+	measure userFrustrated : boolean
 def_end
 rule_start
-	Rule0 when ReadResponseEnd and personalInfo then RedactInformation
-	Rule1 when ExplainCantReturnEnd then ExplainLegalRights
+	Rule0 when PassOntoHumanOperatorStart then WarnUser
+	Rule1 when ReadCustomerGreetingEnd and userFrustrated then SetSympatheticTone
 rule_end

@@ -1,6 +1,7 @@
 import glob
 import os
 import time
+from datetime import datetime
 
 from KnowledgeBase import KnowledgeBase
 
@@ -17,7 +18,7 @@ class Monitor():
             if newUser != None and newUser != currentUser:
                 AnalyserNeeded = True
 
-        print("Detected new userID:" + newUser)
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Detected new userID: {newUser}")
 
         kb.set_current_user(newUser.strip("\n"))
 
