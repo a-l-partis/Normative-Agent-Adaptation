@@ -16,7 +16,8 @@ The adapted workflow file will be created in the same directory under the file n
 
 Our reusable instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example . A video shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop to produce code that interfaces with platform RP to run the adapted workflow.
 
-Platform Mapping:
+Platform Mappings:
+
 AssessRoom – Undock and rotate
 
 DustFurniture - solidly lit green LED1
