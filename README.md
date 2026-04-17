@@ -137,7 +137,11 @@ See the documentation of your chosen SLEEC tool to access the validation functio
 
 <h1>E-Commerce Chatbot</h1>
 
-The E-Commerce Chatbot serves as a demonstration platform for the applicability and portability of the SLEEC-ADAPT component. This proof-of-concept conversational assistant enhances customer experience on online shopping platforms by dynamically adapting its workflow and decision logic based on contextual or client-specific SLEEC rules. Built with the [Rasa Open Source](https://rasa.com) framework, it demonstrates how conversational agents can modify their behaviour in real time — as instructed by SLEEC-ADAPT — to meet diverse user requirements and operational contexts.
+The E-Commerce Chatbot serves as a demonstration platform for the applicability and portability of the SLEEC-ADAPT component. This proof-of-concept conversational assistant enhances customer experience on online shopping platforms by dynamically adapting its workflow based on contextual and client-specific profiles. Built with the [Rasa Open Source](https://rasa.com) framework, the chatbot receives an active workflow at runtime from the MAPE-K loop, which generates and updates the workflow to guide client interactions.
+
+## 🎥 Demonstration Video
+
+A demonstration video showcasing the chatbot interaction and the MAPE-K-driven adaptation process is available in the [Chatbot](Chatbot/) folder.
 
 ## 🤖 Rasa Installation Guide (Linux & macOS)
 
@@ -187,7 +191,8 @@ If you have multiple python versions installed, use the one appropriate for the 
 
 ```
 pip install -U pip
-pip install rasa
+pip install rasa rasa-sdk
+pip install tinydb
 ```
 
 Verify the installation: 
@@ -240,7 +245,7 @@ brew install python@3.X
 
 where ```3.X``` refers to the python version, e.g., ```3.8``` or ```3.9```
 
-### 2️⃣ Create and activate a virtual environment
+### 3️⃣ Create and activate a virtual environment
 
 This step is optional but highly recommended. Using a virtual environment helps isolate your project dependencies and prevents conflicts with system-wide Python packages or different Python versions.
 
@@ -251,11 +256,12 @@ source ./venv/bin/activate
 
 If you have multiple python versions installed, use the one appropriate for the above command, e.g., ```python3.9 -m venv ./venv```
 
-### 3️⃣ Install Rasa
+###  Install Rasa
 
 ```
 pip install -U pip
-pip install rasa
+pip install rasa rasa-sdk
+pip install tinydb
 ```
 
 Verify the installation: 
@@ -286,12 +292,13 @@ brew install python openssl librdkafka
 pip3 install --upgrade pip setuptools wheel
 ```
 
-## 🚀 Running the E-Commerce Chatbot with SLEEC-ADAPT
+## 🚀 Running the E-Commerce Chatbot
 
 Once Rasa and all dependencies are installed, you can run the adaptive chatbot and interact with it as different clients.
-The setup consists of two main components:
-- Chatbot Server — runs the Rasa action server and manages workflow adaptation through SLEEC-ADAPT, and can be found inside the (/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/server/).
-- Client Scripts — represent users with their own ```.sleec``` rule files that personalise the chatbot behaviour, and can be found inside the (/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/clients/).
+The setup consists of three main components:
+- Chatbot Server — runs the Rasa action server, handles client connections, and executes the currently active workflow. It can be found in [server](/Chatbot/server/).
+- MAPE-K Loop - is responsible for all adaptation. It monitors user profiles, analyses whether adaptation is required, generates updated workflows, and writes them to the active workflow (```active.workflowspec```) used by the chatbot.
+- Client Scripts - represent users with different profiles (defined via ```.json``` files) that trigger the MAPE-K loop to adapt the chatbot behaviour. These can be found in [clients](/Chatbot/clients/).
 
 ### ⚙️ Environment Configuration
 
@@ -310,31 +317,50 @@ You should see the full path to your rasa binary, for example:
 
 ### Check your virtual environment path
 
-In the (./CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/server/chatbot_server.py) script, near the top, you will find: 
+In the (/Chatbot/server/chatbot_server.py) script, near the top, you will find: 
 
-```RASA_BIN = "PATH TO RASA EXECUTABLE, e.g.: home/~/venv/bin/rasa"```
+```RASA_BIN = os.path.expanduser("~/virtualenvs/rasa_env/bin/rasa")```
 
 Update this path to match your environment. For example:
 
-```RASA_BIN = "/home/username/venv/bin/rasa"```
+```RASA_BIN = os.path.expanduser("/home/username/venv/bin/rasa")"```
 
-Or, if you’re not using a virtual environment, you can simply comment it out and rely on your system-wide Rasa installation:
+Or, if you’re not using a virtual environment, you can rely on your system-wide Rasa installation.
 
-```# RASA_BIN = "PATH TO RASA EXECUTABLE, e.g.: home/~/venv/bin/rasa"```
+For example, ``` RASA_BIN = "rasa"```.
 
-``` RASA_BIN = "rasa"```
+Below the ```RASA_BIN``` path you will find the ```PYTHON_BIN``` path:
+
+```PYTHON_BIN = os.path.expanduser("~/virtualenvs/rasa_env/bin/python3")```
+
+Again, update this path to match your environment. For example: 
+
+```PYTHON_BIN = os.path.expanduser("~/home/username/venv/bin/python3")```
+
+Or, if you’re not using a virtual environment, you can rely on your system-wide Python installation.
+
+```PYTHON_BIN = "python3"``` 
 
 ### Update the client scripts
 
-Each client script (i.e., (/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/clients/client1/client_chat.sh), (/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/clients/client2/client_chat.sh), and (/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/clients/client3/client_chat.sh)) begins with:
+Each client script (i.e. /Chatbot/clients/client1/client_chat.sh, /Chatbot/clients/client2/client_chat.sh, and /Chatbot/clients/client3/client_chat.sh) optionally tries to activate a virtual environment using:
 
-```source "$HOME/virtualenvs/rasa_env/bin/activate"```
+    VENV_PATH="$HOME/virtualenvs/rasa_env"
 
-If your virtual environment is stored elsewhere, update the path accordingly. If you’re not using a virtual environment, comment this line out.
+    if [ -f "$VENV_PATH/bin/activate" ]; then
+    source "$VENV_PATH/bin/activate"
+    else
+    echo "⚠️  Virtualenv not found at $VENV_PATH"
+    echo "⚠️  Proceeding with system Python/Rasa..."
+    fi
+
+If your virtual environment is stored elsewhere, update the ```VENV_PATH``` variable accordingly.
+
+If you are not using a virtual environment, no change is required, as the script will automatically fall back to the system installation of Python/Rasa. In that case, make sure that rasa is available on your PATH.
 
 ## 🔧 Start the Chatbot Server
 
-Open a new terminal inside the (/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/server/) and launch the main server:
+Open a new terminal inside the (/Chatbot/server/) and launch the main server:
 
 ```python3 chatbot_server.py```
 
@@ -348,57 +374,59 @@ If there are no errors, you should see output similar to:
 🚀 Starting Rasa action server in background...
 ⏳ Waiting for action server on localhost:5055... ✅ Ready.
 🔄 Loading workflow
-✅ Found common SLEEC rules
-🧠 Workflow adapted
 📡 Waiting for client conversations...
 ```
 
 The server:
-- Loads the base workflow and common (universal) SLEEC rules
-- Generates an adapted ```active.workflowspec``` workflow
-- Waits for client connections 
+- Loads and executes the current active workflow (```active.workflowspec```)
+- Handles client connections and forwards user input to the chatbot
+- Relies on the MAPE-K loop to update the workflow at runtime
 
 ## 💬 Launch a Client Chat Session
 
 Each client has its own folder inside the project (for example:
-rasa_decision_support/clients/client1, client2, etc.).
+/clients/client1, client2, etc.).
 
 To start chatting as a specific client, open a new terminal at the client's folder or navigate to that folder, e.g.: 
-```cd rasa_decision_support/clients/client1```
+
+```cd /clients/client1```
 
 Once inside the client's folder, run the client's script ```bash client_chat.sh```
 
-You’ll see something like:
+On the server window you’ll see something like:
 
 ```
 📥 Connection requested at 14:32:10
-
 👤 Connected 'client1'
-ℹ️  No SLEEC rules found for 'client1'.
 ```
 
-If the client folder contains a ```.sleec``` file the chatbot server will automatically apply those rules:
+Each client has an associated ```.json``` file that defines their profile. In this demo, we consider three different profiles: the default user (```-.json```), an anxious user (```AnxiousUser.json```), and a first-time user (```FirstTimeUser.json```).
 
-```
-📥 Connection requested at 14:34:25
-
-👤 Connected 'client2'
-✅ Found 'client2' SLEEC rules
-🧠 Workflow adapted for 'client2'
-```
-
-#### Adaptation logic
-
-- Client without rules → Chatbot uses the base workflow
-- Client with rules → Chatbot dynamically applies the user’s ```.sleec``` rules to the workflow
+For the default user, the base workflow is used. For all other profiles, the MAPE-K loop dynamically generates an adapted workflow based on user-specific rules, which is then executed by the chatbot.
 
 **Note that before starting a new client conversation, you will need to terminate the current conversation (i.e., ``` Ctrl + C```)** 
 
-## 🧩 Further Experimentation
+## 🔄 MAPE-K Adaptation Loop
 
-By starting the chatbot server and the three client scripts, you can reproduce the baseline scenario illustrated in Figure 5 of the paper.
+The adaptation logic is handled by a separate MAPE-K (Monitor–Analyse–Plan–Execute–Knowledge) loop.
 
-Beyond recreating the reference setup, users are encouraged to explore new scenarios and test the adaptability of SLEEC-ADAPT. You can add multiple ```.sleec``` rule files inside a client’s folder and observe how the chatbot’s workflow dynamically changes.
+The MAPE-K loop:
+- Monitors client connections and user context
+- Analyses whether adaptation is required based on user-specific profiles
+- Generates a new workflow when needed
+- Updates the active workflow (```active.workflowspec```) used by the chatbot
 
-Additionally, the [```actions.py```](/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/actions/actions.py) script — located inside the [actions](/CaseStudies/Chatbot/ChatbotImplementation/rasa_decision_support/actions/) folder — defines the main functionality of the chatbot. You can modify existing behaviours (for example, changing product returns to be automatically accepted by editing line 145:
-```"canReturn": False → True```) or even implement entirely new conversational actions and logic.
+If running the MAPE-K loop manually is of interest, this can be done by commenting out the following lines in ```chatbot_server.py```:
+
+    subprocess.Popen(
+        [PYTHON_BIN, str(mapek_setup)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        cwd=mapek_dir,
+    )
+
+Then, after starting the server, open a separate terminal window, navigate to the MAPE-K folder, and run:
+
+```python3 MAPE-K_setup.py``` 
+
+If you are using a virtual environment, make sure it is activated before running the command.
