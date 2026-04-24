@@ -18,21 +18,15 @@ Our reusable instantiation of the MAPE-K architecture is located in the Hospital
 
 Platform Mappings:
 
+NotifyPatient - Blinking red LED2
 AssessRoom – Undock and rotate
+DisplayCleaningPlan - Blinking red LED2
+DustFurniture - Moves
+SetSilentFloorCleaning - Set the LED colour for CleanFloor to red
+CleanFloor - Move with red LED or no LED
 
-DustFurniture - solidly lit green LED1
-
-CleanFloor - Rotate
-
-DisplayCleaningPlan - LED2 green blinking
-
-NotifyPatient - Blinking LED2 red
-
-SetSilentFloorCleaning - LED2 solidly lit green
-
-set floorNeedsCleaning - button 1
-
-set personResting - button 2
+set floorNeedsCleaning - Button 1 for true, Button 2 for false
+set personResting -  Button 3 for true, Button 4 for false
 
 The reusable MAPE-K implementation can be found at HospitalSimulation/mapek_ws/src/infrastructure/infrastructure.
 
