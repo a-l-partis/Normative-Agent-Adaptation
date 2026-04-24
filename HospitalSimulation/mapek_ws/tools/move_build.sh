@@ -1,10 +1,14 @@
 cd scratch/code-gen/ROS/
-mv -f $1_ws ../../../../
+rm -rf ../../../../$1_ws
+
+mv -f $1_ws ../../../../ -v
 
 cd ../../../../$1_ws
 
-rm -rf src/$1_interface
-rm -rf src/platform
+pwd
+
+rm -rf ./src/$1_interface -v
+rm -rf ./src/platform -v
 
 source ../mapek_ws/install/local_setup.bash
 

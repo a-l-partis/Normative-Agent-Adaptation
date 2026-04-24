@@ -23,7 +23,7 @@ class Planner(MAPEK_Node):
     def input_callback(self,msg):
         self.get_logger().info('Replanning controller')
 
-        # Retrieve user information from knowledge base, plan adaption and generate code on scratch fonlder, and publish a request to the executor.
+        # Retrieve user information from knowledge base, plan adaption and generate code on scratch folder, and publish a request to the executor.
         req1 = GetState.Request()
         response1 = self.get_state.call(req1)
         current_user = response1.user

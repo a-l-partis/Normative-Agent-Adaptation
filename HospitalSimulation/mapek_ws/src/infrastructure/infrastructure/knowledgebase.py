@@ -57,11 +57,18 @@ class KnowledgeBase(Node):
         User = Query()
         user = self.db.get(User.type == 'user' and User.name == id)
         
-        # build response
-        response.rules = user['rules']
-        response.events = user['events']
-        response.measures = user['measures']
-        return response
+        if user != None:
+            # build response
+            response.rules = user['rules']
+            response.events = user['events']
+            response.measures = user['measures']
+            return response
+        else:
+            # build response
+            response.rules = []
+            response.events = []
+            response.measures = []
+            return response
 
     def get_user_data_callback(self, request, response):
         id = request.id
@@ -92,7 +99,15 @@ class KnowledgeBase(Node):
             response.measures = user['measures']
             return response
         else:
-            return None
+            # Default controllers built without rules, events or measures.
+            response.rules = []
+            # build response
+            response.name = id
+            response.gender = ''
+            response.language = ''
+            response.events = []
+            response.measures = []
+            return response
 
     def get_state_callback(self, request, response):
         
@@ -143,7 +158,7 @@ def init(db):
     # db.insert({'type': 'user', 'name': '*', 'rules': ['Rule1'], 'events': ['AssessRoomEnd', 'DisplayCleaningPlanEnd'], 'measures': []})
     
 
-    db.insert({'type': 'state', 'currentUser': '*', 'package': ''})
+    db.insert({'type': 'state', 'currentUser': None, 'package': ''})
 
 def main(args=None):
     try:

@@ -28,8 +28,7 @@ using TwistMsg = geometry_msgs::msg::Twist;
 
 class RP: public rclcpp::Node {
 
-  bool pause = false;
-  bool pausedForEmptying = false;
+
 
   rclcpp::CallbackGroup::SharedPtr callback_group_subscribers;
   rclcpp::CallbackGroup::SharedPtr callback_group_timers;
@@ -45,7 +44,7 @@ class RP: public rclcpp::Node {
     
 
     RP(): Node("RP") {
-      
+
 
       callback_group_subscribers = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
       callback_group_timers = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
@@ -57,9 +56,22 @@ class RP: public rclcpp::Node {
     
       // Platform inputs
       
+      cmd_vel_pub = this->create_publisher<TwistMsg>("cmd_vel",rclcpp::QoS(10).reliable().transient_local());
+      task_display_pub = this->create_publisher<std_msgs::msg::String>("hmi/display/message",rclcpp::QoS(10).reliable().transient_local());
+
       
-      floorNeedsCleaning_pub = this->create_publisher<std_msgs::msg::Bool>("floorNeedsCleaning", 10);
-      personResting_pub = this->create_publisher<std_msgs::msg::Bool>("personResting", 10);
+      floorNeedsCleaning_pub = this->create_publisher<std_msgs::msg::Bool>("floorNeedsCleaning", rclcpp::QoS(10).transient_local());
+      personResting_pub = this->create_publisher<std_msgs::msg::Bool>("personResting", rclcpp::QoS(10).transient_local());
+      
+      floorNeedsCleaningPubTimer = this->create_wall_timer(
+        std::chrono::milliseconds(250),
+        std::bind(&RP::floorNeedsCleaningPubCallback, this)
+      );
+
+      personRestingPubTimer = this->create_wall_timer(
+        std::chrono::milliseconds(250),
+        std::bind(&RP::personRestingPubCallback, this)
+      );
       
       
       undock_client_ptr_ = rclcpp_action::create_client<irobot_create_msgs::action::Undock>(this,"undock", callback_group_clients);
@@ -70,78 +82,118 @@ class RP: public rclcpp::Node {
         RCLCPP_INFO(this->get_logger(), "AssessRoomStart call received by platform.");
         assessroom();
       };
-      AssessRoomStart = this->create_subscription<hosppatient1_interface::msg::AssessRoomStart>("AssessRoomStart", 10, AssessRoomStart_callback, sub1_opt);
-      AssessRoomEnd = this->create_publisher<std_msgs::msg::Bool>("AssessRoomEnd",10);
+      AssessRoomStart = this->create_subscription<hosppatient1_interface::msg::AssessRoomStart>("AssessRoomStart", rclcpp::QoS(10).reliable().transient_local(), AssessRoomStart_callback, sub1_opt);
+      AssessRoomEnd = this->create_publisher<std_msgs::msg::Bool>("AssessRoomEnd",rclcpp::QoS(10).reliable().transient_local());
 
       auto DustFurnitureStart_callback = [this](hosppatient1_interface::msg::DustFurnitureStart msg) -> void {
 
         RCLCPP_INFO(this->get_logger(), "DustFurnitureStart call received by platform.");
         dustfurniture();
       };
-      DustFurnitureStart = this->create_subscription<hosppatient1_interface::msg::DustFurnitureStart>("DustFurnitureStart", 10, DustFurnitureStart_callback, sub1_opt);
-      DustFurnitureEnd = this->create_publisher<std_msgs::msg::Bool>("DustFurnitureEnd",10);
+      DustFurnitureStart = this->create_subscription<hosppatient1_interface::msg::DustFurnitureStart>("DustFurnitureStart", rclcpp::QoS(10).reliable().transient_local(), DustFurnitureStart_callback, sub1_opt);
+      DustFurnitureEnd = this->create_publisher<std_msgs::msg::Bool>("DustFurnitureEnd",rclcpp::QoS(10).reliable().transient_local());
       
       auto CleanFloorStart_callback = [this](hosppatient1_interface::msg::CleanFloorStart msg) -> void {
 
         RCLCPP_INFO(this->get_logger(), "CleanFloorStart call received by platform.");
         cleanfloor();
       };
-      CleanFloorStart = this->create_subscription<hosppatient1_interface::msg::CleanFloorStart>("CleanFloorStart", 10, CleanFloorStart_callback, sub1_opt);
-      CleanFloorEnd = this->create_publisher<std_msgs::msg::Bool>("CleanFloorEnd",10);
+      CleanFloorStart = this->create_subscription<hosppatient1_interface::msg::CleanFloorStart>("CleanFloorStart", rclcpp::QoS(10).reliable().transient_local(), CleanFloorStart_callback, sub1_opt);
+      CleanFloorEnd = this->create_publisher<std_msgs::msg::Bool>("CleanFloorEnd",rclcpp::QoS(10).reliable().transient_local());
 
       auto DisplayCleaningPlanStart_callback = [this](hosppatient1_interface::msg::DisplayCleaningPlanStart msg) -> void {
 
         RCLCPP_INFO(this->get_logger(), "DisplayCleaningPlanStart call received by platform.");
         displaycleaningplan();
       };
-      DisplayCleaningPlanStart = this->create_subscription<hosppatient1_interface::msg::DisplayCleaningPlanStart>("DisplayCleaningPlanStart", 10, DisplayCleaningPlanStart_callback, sub1_opt);
-      DisplayCleaningPlanEnd = this->create_publisher<std_msgs::msg::Bool>("DisplayCleaningPlanEnd",10);
+      DisplayCleaningPlanStart = this->create_subscription<hosppatient1_interface::msg::DisplayCleaningPlanStart>("DisplayCleaningPlanStart", rclcpp::QoS(10).reliable().transient_local(), DisplayCleaningPlanStart_callback, sub1_opt);
+      DisplayCleaningPlanEnd = this->create_publisher<std_msgs::msg::Bool>("DisplayCleaningPlanEnd",rclcpp::QoS(10).reliable().transient_local());
       
       auto NotifyPatientStart_callback = [this](hosppatient1_interface::msg::NotifyPatientStart msg) -> void {
 
         RCLCPP_INFO(this->get_logger(), "NotifyPatientStart call received by platform.");
         notifypatient();
       };
-      NotifyPatientStart = this->create_subscription<hosppatient1_interface::msg::NotifyPatientStart>("NotifyPatientStart", 10, NotifyPatientStart_callback, sub1_opt);
-      NotifyPatientEnd = this->create_publisher<std_msgs::msg::Bool>("NotifyPatientEnd",10);
+      NotifyPatientStart = this->create_subscription<hosppatient1_interface::msg::NotifyPatientStart>("NotifyPatientStart", rclcpp::QoS(10).reliable().transient_local(), NotifyPatientStart_callback, sub1_opt);
+      NotifyPatientEnd = this->create_publisher<std_msgs::msg::Bool>("NotifyPatientEnd",rclcpp::QoS(10).reliable().transient_local());
       
       auto SetSilentFloorCleaningStart_callback = [this](hosppatient1_interface::msg::SetSilentFloorCleaningStart msg) -> void {
 
         RCLCPP_INFO(this->get_logger(), "SetSilentFloorCleaningStart call received by platform.");
         setsilentfloorcleaning();
       };
-      SetSilentFloorCleaningStart = this->create_subscription<hosppatient1_interface::msg::SetSilentFloorCleaningStart>("SetSilentFloorCleaningStart", 10, SetSilentFloorCleaningStart_callback, sub1_opt);
-      SetSilentFloorCleaningEnd = this->create_publisher<std_msgs::msg::Bool>("SetSilentFloorCleaningEnd",10);
+      SetSilentFloorCleaningStart = this->create_subscription<hosppatient1_interface::msg::SetSilentFloorCleaningStart>("SetSilentFloorCleaningStart", rclcpp::QoS(10).reliable().transient_local(), SetSilentFloorCleaningStart_callback, sub1_opt);
+      SetSilentFloorCleaningEnd = this->create_publisher<std_msgs::msg::Bool>("SetSilentFloorCleaningEnd",rclcpp::QoS(10).reliable().transient_local());
 
-      LED = this->create_publisher<turtlebot4_msgs::msg::UserLed>("hmi/led",10);
+      LED = this->create_publisher<turtlebot4_msgs::msg::UserLed>("hmi/led",rclcpp::QoS(10).reliable().transient_local());
 
       auto Buttons_callback = [this](turtlebot4_msgs::msg::UserButton::UniquePtr msg) -> void {
         RCLCPP_INFO(this->get_logger(), "Button pressed.");
         if (msg->button[0]) {
           RCLCPP_INFO(this->get_logger(), "Button1.");
-          floorneedscleaning(); //Don't need - replace w/ needsEmptying
-        }else if (msg->button[1]) {
+          floorneedscleaning(true);
+        } else if (msg->button[1]) {
           RCLCPP_INFO(this->get_logger(), "Button2.");
-          personresting();
+          floorneedscleaning(false);
+        } else if (msg->button[2]) {
+          RCLCPP_INFO(this->get_logger(), "Button3.");
+          personresting(true);
+        }else if (msg->button[3]) {
+          RCLCPP_INFO(this->get_logger(), "Button4.");
+          personresting(false);
           }
       };
       
       buttons_subscriber_ = this->create_subscription<turtlebot4_msgs::msg::UserButton>(
         "/hmi/buttons", 
         rclcpp::QoS(rclcpp::KeepLast(10)).best_effort().durability_volatile(),
-        //10,         
         Buttons_callback, sub1_opt
                 
       );        
     }
     
+    
+
+    
     private:
     
+      bool floorNeedsCleaning;
+      bool personResting;
+      std::string cleanFloorLEDColour = "";
+    
+      rclcpp::Publisher<TwistMsg>::SharedPtr cmd_vel_pub;
+      rclcpp::Publisher<std_msgs::msg::String>::SharedPtr task_display_pub;
           
       rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr floorNeedsCleaning_pub;
       rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr personResting_pub;
       
+      rclcpp::TimerBase::SharedPtr floorNeedsCleaningPubTimer;
+      rclcpp::TimerBase::SharedPtr personRestingPubTimer;
+      
+      // In your class constructor
+
+      void floorNeedsCleaningPubCallback() {
+        auto message = std_msgs::msg::Bool();
+        message.data = this->floorNeedsCleaning;
+  
+        //RCLCPP_INFO(this->get_logger(), "Publishing FloorNeedsCleaning: '%s'", message.data ? "true" : "false");
+  
+        floorNeedsCleaning_pub->publish(message);
+}
+            
+      void personRestingPubCallback() {
+        auto message = std_msgs::msg::Bool();
+        message.data = this->personResting;
+  
+        //RCLCPP_INFO(this->get_logger(), "Publishing PersonResting: '%s'", message.data ? "true" : "false");
+  
+        personResting_pub->publish(message);
+}
+      
+      
+      
       rclcpp::Publisher<turtlebot4_msgs::msg::UserLed>::SharedPtr LED;
+      
 
       rclcpp_action::Client<irobot_create_msgs::action::Undock>::SharedPtr undock_client_ptr_;
       
@@ -153,63 +205,6 @@ class RP: public rclcpp::Node {
       
       //Start of docking and undocking
 
-
-      void undockAndRotate() {
-      
-        using namespace std::placeholders;
-        if (undock_in_progress) {
-            return;
-        }
-  undock_in_progress = true;
-        if (!this->undock_client_ptr_->wait_for_action_server()) {
-          RCLCPP_ERROR(this->get_logger(), "Undock action server not available after waiting");
-          rclcpp::shutdown();
-        }
-
-        auto undock_goal_msg = irobot_create_msgs::action::Undock::Goal();
-        RCLCPP_INFO(this->get_logger(), "Sending Undock goal");
-
-        auto send_undock_goal_options = rclcpp_action::Client<Undock>::SendGoalOptions();
-        send_undock_goal_options.result_callback =
-          std::bind(&RP::undock_result_callback, this, _1);
-          
-        this->undock_client_ptr_->async_send_goal(undock_goal_msg, send_undock_goal_options);
-      }
-
-      void undock_result_callback(const GoalHandleUndock::WrappedResult & result)
-      {
-        switch (result.code) {
-          case rclcpp_action::ResultCode::SUCCEEDED:
-            break;
-          case rclcpp_action::ResultCode::ABORTED:
-            RCLCPP_ERROR(this->get_logger(), "Undock goal was aborted");
-            break;
-          case rclcpp_action::ResultCode::CANCELED:
-            RCLCPP_ERROR(this->get_logger(), "Undock goal was canceled");
-            break;
-          default:
-            RCLCPP_ERROR(this->get_logger(), "Unknown result code");
-            break;
-        }
-        //if (!result.result->is_docked) {
-          //RCLCPP_INFO(this->get_logger(), "Robot successfully undocked.");
-          //RCLCPP_INFO(this->get_logger(), "Rotating...");
-          
-        cmd_assess_vel_pub = this->create_publisher<TwistMsg>("cmd_vel",10);
-          
-          //Callback sends move messages
-        if(!assess_timer) {
-            assess_timer = this->create_wall_timer(
-            50ms, std::bind(&RP::assess_timer_motion_callback, this), callback_group_timers);
-        }
-          //Callback stops execution - cancels both timers
-          // turns the LED to false.
-        if(!finish_assess_timer) {
-            finish_assess_timer = this->create_wall_timer(
-            15s, std::bind(&RP::assess_timer_finish_callback, this), callback_group_timers);
- 
-      	}
-    }
       
       rclcpp_action::Client<irobot_create_msgs::action::Dock>::SharedPtr dock_client_ptr_;
       
@@ -266,45 +261,73 @@ class RP: public rclcpp::Node {
           RCLCPP_INFO(this->get_logger(), "Robot successfully docked.");
         }
       }
-      
-      rclcpp::TimerBase::SharedPtr assess_timer;
-      rclcpp::TimerBase::SharedPtr finish_assess_timer;
-      rclcpp::Publisher<TwistMsg>::SharedPtr cmd_assess_vel_pub;
-      
-      
-      
+
       rclcpp::Subscription<hosppatient1_interface::msg::AssessRoomStart>::SharedPtr AssessRoomStart;
       rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr AssessRoomEnd;
 
-    void assessroom() {
+
     
+
+    void assessroom() {
     	using namespace std::placeholders;
-        using TwistMsg = geometry_msgs::msg::Twist;
-    	undockAndRotate();
-    	
-    	if (!this->undock_client_ptr_->wait_for_action_server()) {
-          RCLCPP_ERROR(this->get_logger(), "Motion action server not available after waiting");
+      using TwistMsg = geometry_msgs::msg::Twist;
+      auto task_msg = std_msgs::msg::String();
+      task_msg.data = "AssessRoom";
+      task_display_pub->publish(task_msg);
+      
+      undock();
+    }
+
+    
+      void undock() {
+      
+        using namespace std::placeholders;
+        if (undock_in_progress) {
+            return;
+        }
+        undock_in_progress = true;
+        if (!this->undock_client_ptr_->wait_for_action_server()) {
+          RCLCPP_ERROR(this->get_logger(), "Undock action server not available after waiting");
           rclcpp::shutdown();
-        } else {
-          //RCLCPP_INFO(this->get_logger(), "Rotating...");
+        }
+
+        auto undock_goal_msg = irobot_create_msgs::action::Undock::Goal();
+        RCLCPP_INFO(this->get_logger(), "Sending Undock goal");
+
+        auto send_undock_goal_options = rclcpp_action::Client<Undock>::SendGoalOptions();
+        send_undock_goal_options.result_callback =
+          std::bind(&RP::undock_result_callback, this, _1);
           
-          cmd_assess_vel_pub = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel",10);
-          
-          //Callback sends move messages
-          //if(!assess_timer) {
-              //assess_timer = this->create_wall_timer(
-              //50ms, std::bind(&RP::assess_timer_motion_callback, this));
-          //}
-          //Callback stops execution - cancels both timers
-          // turns the LED to false.
-          if(!finish_assess_timer) {
-              finish_assess_timer = this->create_wall_timer(
-              15s, std::bind(&RP::assess_timer_finish_callback, this));
+        this->undock_client_ptr_->async_send_goal(undock_goal_msg, send_undock_goal_options);
+      }
+
+    void undock_result_callback(const GoalHandleUndock::WrappedResult & result)
+      {
+        undock_in_progress = false;
+
+    if (result.code == rclcpp_action::ResultCode::SUCCEEDED) {
+      // rotation
+      rotate();
+    } else {
+        RCLCPP_ERROR(this->get_logger(), "Undock failed, cannot assess room.");
+    }
+  }
+
+    rclcpp::TimerBase::SharedPtr rotateTimer;
+    rclcpp::TimerBase::SharedPtr finishRotateTimer;
+      
+    void rotate() {
+        if (!rotateTimer) {
+            rotateTimer = this->create_wall_timer(
+                0.3s, std::bind(&RP::rotateCallback, this));
           }
+        if (!finishRotateTimer){
+          finishRotateTimer = this->create_wall_timer(
+                2s, std::bind(&RP::rotateFinishCallback, this));
         }
     }
     
-    void assess_timer_motion_callback() {
+    void rotateCallback() {
     
       using TwistMsg = geometry_msgs::msg::Twist;
         auto msg = geometry_msgs::msg::Twist();
@@ -315,17 +338,29 @@ class RP: public rclcpp::Node {
         msg.angular.y = 0.0;
         msg.angular.z = 1.0;
         
-        
-        this->cmd_assess_vel_pub ->publish(msg);
+        this->cmd_vel_pub ->publish(msg);
         }
         
-      void assess_timer_finish_callback() {
+      void rotateFinishCallback() {
         using TwistMsg = geometry_msgs::msg::Twist;
         TwistMsg stop;
-        this->cmd_assess_vel_pub->publish(stop);
-        this->assess_timer->cancel();
-        this->finish_assess_timer->cancel();
-        
+        stop.linear.x = 0;
+        stop.linear.y = 0;
+        stop.linear.z = 0;
+
+        stop.angular.x = 0;
+        stop.angular.y = 0;
+        stop.angular.z = 0;
+
+        this->cmd_vel_pub->publish(stop);
+        if (this->rotateTimer) {
+                this->rotateTimer->cancel();
+            }
+            
+        if (this->finishRotateTimer) {
+            this->finishRotateTimer->cancel();
+            }
+                
         RCLCPP_INFO(this->get_logger(), "AssessRoom Done");
         auto message = std_msgs::msg::Bool();
         message.data = true;
@@ -337,32 +372,28 @@ class RP: public rclcpp::Node {
       rclcpp::TimerBase::SharedPtr motion_timer2;
       rclcpp::TimerBase::SharedPtr finish_timer2;
       
-      rclcpp::Publisher<TwistMsg>::SharedPtr cmd_vel_pub;
 
     void dustfurniture() {
     	using namespace std::placeholders;
         using TwistMsg = geometry_msgs::msg::Twist;
-        setLED(false,1,"green",false);
+          auto task_msg = std_msgs::msg::String();
+          task_msg.data = "DustFurniture";
+          task_display_pub->publish(task_msg);
+      
+
         if (!this->undock_client_ptr_->wait_for_action_server()) {
           RCLCPP_ERROR(this->get_logger(), "Motion action server not available after waiting");
           rclcpp::shutdown();
         } else {
-      
-          //Here I want to move the turtlebot forward for every timer tick
-          //For five seconds.
-          
-          cmd_vel_pub = this->create_publisher<TwistMsg>("cmd_vel",10);
-          
-          //Callback sends move messages
+
           if(!motion_timer2) {
               motion_timer2 = this->create_wall_timer(
-                5s, std::bind(&RP::dustfurniture_timer_motion_callback, this));
-          }
-          //Callback stops execution - cancels both timers
-          // turns the LED to false.
+                0.5s, std::bind(&RP::dustfurniture_timer_motion_callback, this));
+           }
+
           if(!finish_timer2) {
-          finish_timer2 = this->create_wall_timer(
-          20s, std::bind(&RP::dustfurniture_timer_finish_callback, this));
+              finish_timer2 = this->create_wall_timer(
+              5s, std::bind(&RP::dustfurniture_timer_finish_callback, this));
           }
         }
     }
@@ -370,16 +401,27 @@ class RP: public rclcpp::Node {
       void dustfurniture_timer_motion_callback() {
         using TwistMsg = geometry_msgs::msg::Twist;
         TwistMsg msg;
-        msg.linear.x = 0.5;
-        msg.angular.z = 0.0;
-        
+        msg.linear.x = 0.3;
+        msg.linear.y = 0;
+        msg.linear.z = 0;
+
+        msg.angular.x = 0.3;
+        msg.angular.y = 0;
+        msg.angular.z = 0;
         this->cmd_vel_pub->publish(msg);
       }
       
       void dustfurniture_timer_finish_callback()
       {
-        setLED(true,1,"",false);
         TwistMsg stop;
+        stop.linear.x = 0;
+        stop.linear.y = 0;
+        stop.linear.z = 0;
+
+        stop.angular.x = 0;
+        stop.angular.y = 0;
+        stop.angular.z = 0;
+
         this->cmd_vel_pub->publish(stop);
         this->motion_timer2->cancel();
         this->finish_timer2->cancel();
@@ -402,32 +444,27 @@ rclcpp::Subscription<hosppatient1_interface::msg::CleanFloorStart>::SharedPtr Cl
       rclcpp::TimerBase::SharedPtr cleanFloor_motion_timer;
       rclcpp::TimerBase::SharedPtr cleanFloor_finish_timer;
       
-      rclcpp::Publisher<TwistMsg>::SharedPtr cmd_vel_pub2;
-
     void cleanfloor() {
     	using namespace std::placeholders;
         using TwistMsg = geometry_msgs::msg::Twist;
-        setLED(false,1,"green",true);
+        auto task_msg = std_msgs::msg::String();
+        task_msg.data = "CleanFloor";
+        task_display_pub->publish(task_msg);
+      
+        setLED(false,2,this->cleanFloorLEDColour,true);
         if (!this->undock_client_ptr_->wait_for_action_server()) {
           RCLCPP_ERROR(this->get_logger(), "Motion action server not available after waiting");
           rclcpp::shutdown();
         } else {
-      
-          //Here I want to move the turtlebot forward for every timer tick
-          //For five seconds.
-          
-          cmd_vel_pub2 = this->create_publisher<TwistMsg>("cmd_vel",10);
-          
-          //Callback sends move messages
+
           if(!cleanFloor_motion_timer){
               cleanFloor_motion_timer = this->create_wall_timer(
                 0.5s, std::bind(&RP::cleanFloor_motion_timer_callback, this));
           }
-          //Callback stops execution - cancels both timers
-          // turns the LED to false.
+
           if(!cleanFloor_finish_timer){
               cleanFloor_finish_timer = this->create_wall_timer(
-                20s, std::bind(&RP::cleanfloor_timer_finish_callback, this));
+                5s, std::bind(&RP::cleanfloor_timer_finish_callback, this));
           }
         }
     }
@@ -435,17 +472,21 @@ rclcpp::Subscription<hosppatient1_interface::msg::CleanFloorStart>::SharedPtr Cl
       void cleanFloor_motion_timer_callback() {
         using TwistMsg = geometry_msgs::msg::Twist;
         TwistMsg msg;
-        msg.linear.x = 0.5;
-        msg.angular.z = 0.0;
-        
-        this->cmd_vel_pub2->publish(msg);
+        msg.linear.x = 0.3;
+        msg.linear.y = 0;
+        msg.linear.z = 0;
+        msg.angular.x = 0;
+        msg.angular.y = 0;
+        msg.angular.z = 0;
+
+        this->cmd_vel_pub->publish(msg);
       }
       
       void cleanfloor_timer_finish_callback()
       {
 	setLED(true,1,"",false);
         TwistMsg stop;
-        this->cmd_vel_pub2->publish(stop);
+        this->cmd_vel_pub->publish(stop);
         this->cleanFloor_motion_timer->cancel();
         this->cleanFloor_finish_timer->cancel();
         
@@ -460,18 +501,20 @@ rclcpp::Subscription<hosppatient1_interface::msg::CleanFloorStart>::SharedPtr Cl
       
 	rclcpp::Subscription<hosppatient1_interface::msg::DisplayCleaningPlanStart>::SharedPtr DisplayCleaningPlanStart;
       rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr DisplayCleaningPlanEnd;
-      rclcpp::TimerBase::SharedPtr displayCleaningPlan_timer;
+      rclcpp::TimerBase::SharedPtr displayEndTimer;
       
       void displaycleaningplan() {
-        setLED(false,2,"green",true);
-        if(!displayCleaningPlan_timer){
-        displayCleaningPlan_timer = this->create_wall_timer(
+          auto task_msg = std_msgs::msg::String();
+          task_msg.data = "DisplayCleaningPlan";
+          task_display_pub->publish(task_msg);
+      
+        setLED(false,2,"red",true);
+        displayEndTimer = this->create_wall_timer(
           10s, std::bind(&RP::display_cleaning_plan_callback, this));
-        }
       }
       
       void display_cleaning_plan_callback() {
-          this->displayCleaningPlan_timer->cancel();
+          this->displayEndTimer->cancel();
           setLED(true,2,"",false);
           RCLCPP_INFO(this->get_logger(), "DisplayCleaningPlan Done");
           auto message = std_msgs::msg::Bool();
@@ -486,13 +529,9 @@ rclcpp::Subscription<hosppatient1_interface::msg::NotifyPatientStart>::SharedPtr
       void notifypatient() {
       	  // intialise guards
       	  
-
-          auto guard_msg = std_msgs::msg::Bool();
-          guard_msg.data = false;
-          floorNeedsCleaning_pub->publish(guard_msg);
-          personResting_pub->publish(guard_msg);
-      
-      
+          auto task_msg = std_msgs::msg::String();
+          task_msg.data = "NotifyPatient";
+          task_display_pub->publish(task_msg);
       
           setLED(false,2,"red",true);
           if (!notifypatient_timer) {
@@ -516,54 +555,35 @@ rclcpp::Subscription<hosppatient1_interface::msg::NotifyPatientStart>::SharedPtr
       rclcpp::TimerBase::SharedPtr setsilentfloorcleaning_timer;
       
       void setsilentfloorcleaning() {
-        setLED(false,2,"green",false);
-        setsilentfloorcleaning_timer = this->create_wall_timer(
-          10s, std::bind(&RP::setsilent_callback, this));
-      }
+          auto task_msg = std_msgs::msg::String();
+          task_msg.data = "SetSilentCleaningMode";
+          task_display_pub->publish(task_msg);
       
-      void setsilent_callback() {
-          this->setsilentfloorcleaning_timer->cancel();
-          setLED(true,2,"",false);
+          this->cleanFloorLEDColour = "red";
           RCLCPP_INFO(this->get_logger(), "SetSilentFloorCleaning Done");
           auto message = std_msgs::msg::Bool();
           message.data = true;
           this->SetSilentFloorCleaningEnd->publish(message);
-      }
-      
-      
-      
+      }      
       // measures
       rclcpp::Subscription<turtlebot4_msgs::msg::UserButton>::SharedPtr buttons_subscriber_;
 
 
-      void floorneedscleaning() {
-        //floorNeedsCleaning_pub = this->create_publisher<std_msgs::msg::Bool>("floorNeedsCleaning",10);
-        auto msg = std_msgs::msg::Bool();
-        msg.data = true;
-
-        floorNeedsCleaning_pub->publish(msg);
-        RCLCPP_INFO(this->get_logger(), "floorNeedsCleaning");
+      void floorneedscleaning(bool setbool) {
+	this->floorNeedsCleaning = setbool;
       }
 
-      void personresting() {
-        personResting_pub = this->create_publisher<std_msgs::msg::Bool>("personResting",10);
-        auto msg = std_msgs::msg::Bool();
-        msg.data = true;
-        
-        personResting_pub->publish(msg);
-        RCLCPP_INFO(this->get_logger(), "personResting");
-        //publish
+      void personresting(bool setbool) {
+	this->personResting = setbool;
       }
 
-      // Auxiliary methods
-      
       void setLED(bool stop, int ledNum, std::string colour,bool blink) {
           turtlebot4_msgs::msg::UserLed message;
           if(ledNum == 1) {
-              message.led = turtlebot4_msgs::msg::UserLed::USER_LED_1;
+              message.led = (uint8_t)0;
           } else {
               //led2
-              message.led = turtlebot4_msgs::msg::UserLed::USER_LED_2;
+              message.led = (uint8_t)1;
           }
           if(blink){
               message.blink_period = 1000;

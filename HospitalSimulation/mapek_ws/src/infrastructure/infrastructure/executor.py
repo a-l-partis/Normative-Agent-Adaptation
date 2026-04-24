@@ -24,7 +24,9 @@ class Executor(MAPEK_Node):
         output = subprocess.run(['sh', 'tools/executor-script.sh', pkg_name])
         self.get_logger().info('ROS2 code generated in scratch folder.')
 
-        output = subprocess.run(['bash', 'tools/move_build.sh', pkg_name])
+        # output = subprocess.run(['bash', 'tools/move_build.sh', pkg_name])
+        output = subprocess.check_output(['bash', 'tools/move_build.sh', pkg_name], text=True)        
+        self.get_logger().info('Script output:\n\n\t%s\n' % output)
         self.get_logger().info('ROS2 code moved to root folder and compiled.')
 
         self.get_logger().info('Shutting down previous controller.')
