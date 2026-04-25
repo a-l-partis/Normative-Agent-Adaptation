@@ -67,7 +67,13 @@ Once the turtlebot is set up in gazebo, you can launch the MAPE-K loop with
 And trigger the adaptation, code generation and deployment (to Patient1's rules) like this:
 
 ```
-./test.sh
+./testAlex.sh
+```
+
+To send the MAPE-K a userID that does not link to any SLEEC rules, run
+
+```
+./testMary.sh
 ```
 
 Once the MAPE-K cycle has run, the simulation of the turtlebot executing the generated code will proceed.
