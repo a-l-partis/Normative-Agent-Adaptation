@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+10#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import random
 import os
@@ -116,6 +116,7 @@ def generatingWorkflow(file,indents,lastWF,tasksToGen):
         workflow = selectWorkflow()
     if tasksToGen <= TASK_COUNT:
         workflow = "Task"
+    
         
     match(workflow):
         
@@ -176,26 +177,52 @@ def generateWorkflow(file,tasksToGen):
     generatingWorkflow(file,1,None,tasksToGen)
     file.write("\n}")
     
+def checkCloseEnough(target,realTaskNum):
+    if target < 1000:
+        if target == realTaskNum:
+            return True
+        else:
+            return False
+    if target < 5000:
+        if realTaskNum > target - 5 and realTaskNum < target + 5:
+            return True
+        else:
+            return False
+    if target < 11000:
+        if realTaskNum > target - 10 and realTaskNum < target + 10:
+            return True
+        else:
+            return False
+    else:
+        True
+    
 def gen(maxTasks,increment):
     global LIVEBRANCHES
     global TASK_COUNT
     global GUARD_NUM
     
-    for x in range(1,maxTasks,increment):
+    for x in range(0,maxTasks,increment):
         LIVEBRANCHES = 1
         TASK_COUNT = 0
         GUARD_NUM = 0
+        while True:
+            if x != 0:
+                file = open("workflow-new.text","a+")
+                generateWorkflow(file,x)
+                
+                if not checkCloseEnough(x,TASK_COUNT):
+                    LIVEBRANCHES = 1
+                    TASK_COUNT = 0
+                    GUARD_NUM = 0
+                    file.seek(0)
+                    file.truncate()
+                else:
+                    break
+            else:
+                x += 1
         
-        file = open("workflow-new.text","a+")
-        generateWorkflow(file,x)
         file.close()
-        os.rename("workflow-new.text",f"workflow-{TASK_COUNT}Tasks.workflowspec")
-        file = open("workflow-new.text","a+")
-        LIVEBRANCHES = 1
-        TASK_COUNT = 0
-        GUARD_NUM = 0
-        generateWorkflow(file,x)
-        file.close()
+
         os.rename("workflow-new.text",f"workflow-{TASK_COUNT}Tasks.workflowspec")
         print(x)
     print("Done")
