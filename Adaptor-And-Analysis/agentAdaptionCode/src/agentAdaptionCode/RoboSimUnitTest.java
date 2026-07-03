@@ -29,7 +29,7 @@ public class RoboSimUnitTest {
 	//Normative-Agent-Adaptation/Adaptor-And-Analysis/Supplements/csp-Traces-RoboSimTesting/
 	
 	// Loop_BooCompGuard, Dec_RelComp, and Dec_RelComp2 are not from AdaptionUnitTest.java: they are
-	// new for RoboSimUnitTest/java, devised to cover the full range of guards.
+	// new for RoboSimUnitTest.java, devised to cover the full range of guards.
 
 	
 	@Test
