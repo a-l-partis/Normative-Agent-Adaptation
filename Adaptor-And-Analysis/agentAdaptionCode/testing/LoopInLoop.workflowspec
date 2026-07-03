@@ -11,9 +11,13 @@ WorkflowStructure {
 					}
 				}
 			}
-			guard Atom {
-				measureID "not personPresent"
+			guard Not {
+				op "not"
+				expr Atom {
+					measureID "personPresent"
+				}
 			}
+
 		}
 	}
 	

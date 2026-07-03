@@ -1,0 +1,17 @@
+WorkflowStructure {
+	 workflowspec Loop {
+		loop GuardedWorkflow {
+			body Task {
+				ID "SmallTask"}
+			guard BoolComp {
+				op AND
+				right Atom {
+					measureID "smallguard1"
+				}
+				left Atom {
+					measureID "smallguard2"
+				}
+			}
+		}
+	}
+}

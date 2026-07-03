@@ -18,8 +18,12 @@ WorkflowStructure {
 						body Task {
 							ID "Skip"
 							}
-						guard Atom {
-							measureID "not needsVacuuming"
+						guard Not {
+							op "not"
+							expr Atom {
+								measureID "needsVacuuming"
+							}
+								
 						}
 					}
 				}

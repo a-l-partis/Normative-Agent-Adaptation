@@ -1,5 +1,7 @@
 package agentAdaptionCode;
 
+import java.util.ArrayList;
+
 import circus.robocalc.sleec.sLEEC.*;
 
 import workflowspec.*;
@@ -21,6 +23,7 @@ public class WGuardedWorkflow extends WWorkflow{
 		} else {
 			this.body = body;
 		}
+		
 	}
 	
 	public String getStr(int depth) {
@@ -30,9 +33,9 @@ public class WGuardedWorkflow extends WWorkflow{
 		}
 		if(this.body instanceof WTask) {
 			WTask castBody = (WTask) this.body;
-			return tabs + "GuardedWorkflow(guard: " + SLEECTKIntegration.exprToString(this.guard,true,false) + ", body:" + castBody.toString() + ")";	
+			return tabs + "GuardedWorkflow(guard: " + SLEECTKIntegration.exprToString(this.guard,true,false,new ArrayList<String>()) + ", body:" + castBody.toString() + ")";	
 		} else {
-			return tabs + "GuardedWorkflow(guard: " + SLEECTKIntegration.exprToString(this.guard,true,false) + ", body:\n" + this.body.getStr(depth+1) + ")";
+			return tabs + "GuardedWorkflow(guard: " + SLEECTKIntegration.exprToString(this.guard,true,false,new ArrayList<String>()) + ", body:\n" + this.body.getStr(depth+1) + ")";
 		}
 	}
 	

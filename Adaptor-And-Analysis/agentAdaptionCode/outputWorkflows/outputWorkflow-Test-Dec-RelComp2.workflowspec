@@ -1,0 +1,27 @@
+WorkflowStructure {
+	 workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Task {
+							ID "AlertUser"},
+						Task {
+							ID "Vacuum"},
+						Task {
+							ID "LeaveRoom"}
+					}
+				}
+				guard RelComp {
+					op NOT_EQUAL
+					left Atom {
+						measureID "numTimesVacuumed"
+					}
+					right Value {
+						value 0
+					}
+				}
+			}
+		}
+	}
+}

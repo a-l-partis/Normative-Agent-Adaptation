@@ -1,0 +1,20 @@
+WorkflowStructure {
+	workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Task {
+					ID "Vacuum"
+				}
+				guard RelComp {
+					op EQUAL
+					left Atom {
+						measureID "numTimesVacuumed"
+					}
+					right Value {
+						value 0
+					}
+				}
+			}
+		}
+	}
+}

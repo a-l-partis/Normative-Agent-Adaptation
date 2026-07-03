@@ -1,0 +1,47 @@
+WorkflowStructure {
+	 workflowspec Decision {
+		options {
+			GuardedWorkflow {
+				body Sequence {
+					subworkflows {
+						Task {
+							ID "AlertUser"},
+						Task {
+							ID "Vacuum"},
+						Task {
+							ID "LeaveRoom"}
+					}
+				}
+				guard BoolComp {
+					op AND
+					right Not {
+						op not
+						expr Atom {
+						measureID "personPresent"
+					}
+					}
+					left Atom {
+						measureID "needsVacuuming"
+					}
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID "Skip"}
+				guard Not {
+					op not
+					expr Atom {
+					measureID "needsVacuuming"
+				}
+				}
+			},
+			GuardedWorkflow {
+				body Task {
+					ID "Dock"}
+				guard Atom {
+					measureID "personPresent"
+				}
+			}
+		}
+	}
+}

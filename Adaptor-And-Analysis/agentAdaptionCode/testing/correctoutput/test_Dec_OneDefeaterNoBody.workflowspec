@@ -52,16 +52,28 @@ WorkflowStructure {
 						}
 					}
 				}
-				guard Atom {
-					measureID "needsVacuuming and not personPresent"
-				}
+guard BoolComp {
+								op AND
+								right Not {
+									op "not"
+									expr Atom {
+										measureID "personPresent"
+									}
+								}
+								left Atom {
+									measureID "needsVacuuming"
+								}
+							}
 			},
 			GuardedWorkflow {
 				body Task {
 					ID "Skip"
 					}
-					guard Atom {
-						measureID "not needsVacuuming"
+					guard Not {
+						op "not"
+						expr Atom {
+							measureID "needsVacuuming"
+						}
 					}
 				},
 			GuardedWorkflow {

@@ -59,6 +59,9 @@ public static WWorkflow runAlgorithm(String workflowPath, String sleecPath,Strin
 
 	toOutputWorkflow(result,outputName,save);
 	
+	RoboSimConverter.Convert(toAdapt, outputName, "inputFiles/caseStudy/Chatbot-UniversalRules.sleec");
+
+	
 	if(save) {
 		System.out.println("output workflow in: outputworkflows/" + outputName + ".workflowspec");
 	}

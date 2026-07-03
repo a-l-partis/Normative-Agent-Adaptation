@@ -6,12 +6,12 @@ WorkflowStructure {
 					subworkflows {
 						Task {
 							ID "Undock"
-							},
-							Task {
-								ID "Vacuum"
-							}
+						},
+						Task {
+							ID "Vacuum"
 						}
 					}
+				}
 				guard Atom {
 					measureID "needsVacuuming"
 				}
@@ -19,10 +19,13 @@ WorkflowStructure {
 			GuardedWorkflow {
 				body Task {
 					ID "Skip"
+				}
+				guard Not {
+					op "not"
+					expr Atom {
+						measureID "needsVacuuming"
 					}
-				guard Atom {
-					measureID "not needsVacuuming"
-				}	
+				}
 			}
 		}
 	}

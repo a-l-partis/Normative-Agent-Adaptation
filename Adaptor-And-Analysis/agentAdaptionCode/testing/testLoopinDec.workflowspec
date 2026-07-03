@@ -19,9 +19,12 @@ WorkflowStructure {
 			GuardedWorkflow {
 				body Task {
 					ID "Skip"
+				}
+				guard Not {
+					op "not"
+					expr Atom {
+						measureID "daytime"
 					}
-					guard Atom {
-						measureID "not daytime"
 				}
 			}
 		}
