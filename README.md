@@ -6,7 +6,7 @@
 
 ### Setup and Running ###
 
-The agent-adaption.jar provides the workflow adaptation and robosim model generation functionality in Java 11. To use, download the release from this repository. Place it in the same directory as the files you wish to use as input. To run, open the terminal, navigate to the containing directory, then run the command:
+The agent-adaption.jar provides the workflow adaptation and robosim model generation functionality in Java 11. Download the release from this repository. Place it in the same directory as the files you wish to use as input. To run, open the terminal, navigate to the containing directory, then run the command:
 
 `java -jar agent-adaption.jar <Your Workflow>.workflowspec <Your SLEEC file>.sleec "<Your Output File Name>"`
 
@@ -93,13 +93,13 @@ Instructions to Install the Eclipse-Based Java 21 Version of the Planning Pipeli
 
 ### Setup ###
 
-* Download the eclipse modelling framework 2025-09 and create a workspace.
+* Download the latest version of the eclipse modelling framework and create a workspace.
 
 * Open eclipse marketplace and install xtext
 
 * Clone the Normative-Agent-Adaptation repository
 
-* Select import, select the plugins and fragments wizard, and then import all components of the Normative-Agent-Adaptation directory into the workspace
+* In eclipse, select import, select the plugins and fragments wizard, and then import all components of the Normative-Agent-Adaptation directory into the workspace
 
 * Find the pre-existing SLEEC-TK Repository at https://github.com/UoY-RoboStar/SLEEC-TK and clone the branch fix-mvn-build:
 
@@ -122,9 +122,27 @@ If you wish to change the files used as input, add your files to the inputFiles 
 
 AdaptionUnitTest.java in agentAdaptionCode/src/agentAdaptionCode implements the unit tests for SLEEC-ADAPT. The test files are pre-installed in the repository and will be loaded when AdaptionUnitTest is run.
 
-Find the scalability data collector in agentAdaptionCode/src/Scalability.java. Workflow files consisting of up to 5000 tasks are included, with large sleec files included. Should you want to run with larger workflows, find the LargeWorkflowGenerator.py located in this repository under Scalability/InputGenerators. The x variable on line 135 and line 103 is used to iterate over the workflows: change the limits from 5000 to the new limit.
+Adaptor-And-Analysis/agentAdaptionCode/src/agentAdaptionCode/RoboSimUnitTest.java implements the first step of verification of the RoboSim component. The unit tests do not check the output: they merely run the component over a set of test inputs. Running the tests will save the resulting .rst files in the folder RoboSimOutput/TestOutput. To verify the correctness of the output, transfer these files into the RoboSim tool. RoboSim will automatically generate CSP traces representing them. Retrieve from folder Adaptor-And-Analysis/Supplements/cspTesting of this repository the corresponding csp trace tests, and run them against the .rst files using FDR4.
 
-To run, check either ExperimentSLEECRules() or ExperimentDefeaterRules() is called in the main function of the Scalability class, and run Scalability.java. Data will be stored in scalability/csvFiles, as .csv files.
+To run trace checks via FDR4 in the terminal, ensure FDR4 is installed and activated and you are in the same folder as both your .rst file and .csp file and do:
+
+```
+refines <Your CSP Trace Test>.csp
+```
+The CSP files that test numerical comparisons in guards use values outside of CSP's default limits: in RoboSim you may need to edit the file instantiations.csp, generated inside csp-gen/sim/defs, as such:
+
+```
+nametype core_real = union({ -2..15},{calc_type_min(Union(
+			{{ -2..15}}))..calc_type_max(Union({{ -2..15}}))})
+``` 
+
+Find the scalability data collector in agentAdaptionCode/src/Scalability.java, and the folder Adaptor-And-Analysis/agentAdaptionCode/scalabilityJuly. The java file implements the experiments implementing scalability, whilst the folder contains the compressed input data. To access the input data, extract the compressed files straight into the scalabilityJuly folder. You should now have an uncompressed SLEECInput folder and an uncompressed InputWorkflows folder in scalabilityJuly. You can now run the .java file to run both experiments. The output will be collated in folders Adaptor-And-Analysis/agentAdaptionCode/scalabilityJuly/SleecCSVOutput, and Adaptor-And-Analysis/agentAdaptionCode/scalabilityJuly/DefeatersCSVOutput.
+
+
+### Reviewing Scalability Analysis
+If you wish to review out scalability analysis, the raw data and the code used to generate the graphs in Figure 9 of the graphs can be found in Normative-Agent-Adaptation/Scalability. The raw data for each experiment is in the SleecCSVOutput and DefeatersCSVOutput folders. The raw data must be removed from the containing notebooks and placed in the same folder as the .ipynb notebooks to allow them to access the data.
+
+Workflow files consisting of up to 10000 tasks are included, with large sleec files included. Should you want to run with larger workflows, find the LargeWorkflowGenerator.py located in this repository under Scalability/InputGenerators. The x variable on line 135 and line 103 is used to iterate over the workflows: change the limits from 10000 to the new limit.
 
 ### Creating Input Files ###
 
