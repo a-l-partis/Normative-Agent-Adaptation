@@ -6,7 +6,7 @@
 
 ### Setup and Running ###
 
-The agent-adaption.jar provides the workflow adaptation and robosim model generation functionality. To use, download the release from this repository. Place it in the same directory as the files you wish to use as input. To run, open the terminal, navigate to the containing directory, then run the command:
+The agent-adaption.jar provides the workflow adaptation and robosim model generation functionality in Java 11. To use, download the release from this repository. Place it in the same directory as the files you wish to use as input. To run, open the terminal, navigate to the containing directory, then run the command:
 
 `java -jar agent-adaption.jar <Your Workflow>.workflowspec <Your SLEEC file>.sleec "<Your Output File Name>"`
 
