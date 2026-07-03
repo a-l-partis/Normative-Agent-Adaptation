@@ -14,7 +14,7 @@ The adapted workflow file will be created in the same directory under the file n
 
 <h1>MAPE-K and the Turtlebot Simulation</h1>
 
-Our instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example. The video HospitalSimulationDemo shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop to produce code that interfaces with platform RP to run the workflows from the Motivating Example.
+Our instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example. The video HospitalSimulationDemo shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop to produce code that interfaces with platform RP to run the workflows from the Motivating Example. The planning loop uses the Java 11 version of the executable to perform adaptation and generate the RoboSim model.
 
 Platform Mappings:
 
@@ -137,7 +137,7 @@ See the documentation of your chosen SLEEC tool to access the validation functio
 
 <h1>E-Commerce Chatbot</h1>
 
-The E-Commerce Chatbot serves as a demonstration platform for the applicability and portability of the SLEEC-ADAPT component. This proof-of-concept conversational assistant enhances customer experience on online shopping platforms by dynamically adapting its workflow based on contextual and client-specific profiles. Built with the [Rasa Open Source](https://rasa.com) framework, the chatbot receives an active workflow at runtime from the MAPE-K loop, which generates and updates the workflow to guide client interactions.
+The E-Commerce Chatbot serves as a demonstration platform for the applicability and portability of the SLEEC-ADAPT component. This proof-of-concept conversational assistant enhances customer experience on online shopping platforms by dynamically adapting its workflow based on contextual and client-specific profiles. Built with the [Rasa Open Source](https://rasa.com) framework, the chatbot receives an active workflow at runtime from the MAPE-K loop, which generates and updates the workflow to guide client interactions. The planning loop uses the Java 11 version of the executable to perform adaptation.
 
 ## 🎥 Demonstration Video
 
