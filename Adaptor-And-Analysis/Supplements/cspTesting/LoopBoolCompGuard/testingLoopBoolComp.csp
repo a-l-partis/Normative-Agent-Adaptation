@@ -1,0 +1,170 @@
+include "csp-gen/sim/defs/core_timed_defs.csp"
+include "csp-gen/sim/defs/file_testingLoopBoolComp_defs.csp"
+include "csp-gen/sim/defs/core_defs.csp"
+include "csp-gen/sim/defs/M_C_wfSTM.csp"
+include "csp-gen/sim/defs/state_timed_defs.csp"
+include "csp-gen/sim/defs/robochart_defs.csp"
+include "csp-gen/sim/instantiations.csp"
+
+transparent wbisim
+transparent chase
+channel r__
+
+SYSTEM = 
+    let
+        cycle_M_C_wfSTM_wfSTM = 1
+        id__ = 0
+    within
+        M_C_wfSTM::D__(id__, cycle_M_C_wfSTM_wfSTM)
+        
+SYSTEM_H = SYSTEM \ {M_C_wfSTM::endexec, tock}
+
+
+-- Checks that looping occurs when all guards true.
+assert SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart>
+    
+    
+-- Checks that there is no looping when all guards false
+assert not SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart>
+    
+    
+
+    
+-- Checks that there is no looping when one guard false
+assert not SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart>
+    
+    
+-- Checks that there is no looping when one guard false
+assert not SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart>
+    
+-- Checks looping stops when a guard goes false.
+assert SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_SmallTaskEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard1.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_smallguard2.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_unmappedBumperCount.true.0,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_SmallTaskStart>
+    
+    
+    

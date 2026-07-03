@@ -1,0 +1,278 @@
+include "csp-gen/sim/defs/core_timed_defs.csp"
+include "csp-gen/sim/defs/file_testLoop_defs.csp"
+include "csp-gen/sim/defs/core_defs.csp"
+include "csp-gen/sim/defs/M_C_wfSTM.csp"
+include "csp-gen/sim/defs/state_timed_defs.csp"
+include "csp-gen/sim/defs/robochart_defs.csp"
+include "csp-gen/sim/instantiations.csp"
+
+transparent wbisim
+transparent chase
+channel r__
+
+SYSTEM = 
+    let
+        cycle_M_C_wfSTM_wfSTM = 1
+        id__ = 0
+    within
+        M_C_wfSTM::D__(id__, cycle_M_C_wfSTM_wfSTM)
+        
+SYSTEM_H = SYSTEM \ {M_C_wfSTM::endexec, tock}
+
+-- Default Behaviour -Two iterations of the loop
+assert SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_VacuumStart,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_LeaveRoomStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart,
+    
+ 
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_VacuumStart,
+    
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_LeaveRoomStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false>
+    
+-- Check loop doesn't run if guard false
+assert SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false>
+ 
+
+--  -Two iterations of the loop, but trace has another action after end of loop
+assert not SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_VacuumStart,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_LeaveRoomStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart,
+    
+ 
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_VacuumStart,
+    
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_LeaveRoomStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+        
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+ 	M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart>
+    
+-- Check loop can't start on a false guard
+assert not SYSTEM_H :[has trace]: <
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart>
+        

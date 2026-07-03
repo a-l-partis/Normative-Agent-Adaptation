@@ -1,0 +1,244 @@
+include "csp-gen/sim/defs/core_timed_defs.csp"
+include "csp-gen/sim/defs/file_testingDecInLoop_defs.csp"
+include "csp-gen/sim/defs/core_defs.csp"
+include "csp-gen/sim/defs/M_C_wfSTM.csp"
+include "csp-gen/sim/defs/state_timed_defs.csp"
+include "csp-gen/sim/defs/robochart_defs.csp"
+include "csp-gen/sim/instantiations.csp"
+
+transparent wbisim
+transparent chase
+channel r__
+
+SYSTEM = 
+    let
+        cycle_M_C_wfSTM_wfSTM = 1
+        id__ = 0
+    within
+        M_C_wfSTM::D__(id__, cycle_M_C_wfSTM_wfSTM)
+        
+SYSTEM_H = SYSTEM \ {M_C_wfSTM::endexec, tock}
+
+
+
+-- Checks that as long as the guard doesn't change, the loop continues running the same branch
+assert SYSTEM_H :[has trace]: <
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_VacuumStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_LeaveRoomStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart
+    
+    >
+    
+
+
+-- Checks that the decision can take different branches during the loop execution
+assert SYSTEM_H :[has trace]: <
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_VacuumStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_LeaveRoomStart,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+    
+    
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart
+    
+    >
+    
+    
+    
+
+-- Checks that if the guard changes to the skip branch, the correct branch runs
+assert not SYSTEM_H :[has trace]: <
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.false,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart
+    >
+
+
+
+-- Checks that the loop doesn't run when the guard is false
+assert not SYSTEM_H :[has trace]: <
+
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_AlertUserEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_VacuumEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_LeaveRoomEnd.false,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_needsVacuuming.true.true,
+    M_C_wfSTM::registerRead.M_C_wfSTM::i_userPraying.true.true,
+
+    M_C_wfSTM::registerWrite.M_C_wfSTM::o_AlertUserStart
+    >    
+    
+    
+    
