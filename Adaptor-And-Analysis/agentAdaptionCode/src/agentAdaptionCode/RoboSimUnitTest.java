@@ -26,7 +26,7 @@ public class RoboSimUnitTest {
 	// robosim tool, which will automatically generate csp representations.
 	// then you should run the csp traces provided in the Supplementary folder
 	// of the repository:
-	//(/home/alp565/AgentAdaptionFolders/uploadingJuly/Normative-Agent-Adaptation/Adaptor-And-Analysis/Supplements/csp-Traces-RoboSimTesting/
+	//Normative-Agent-Adaptation/Adaptor-And-Analysis/Supplements/csp-Traces-RoboSimTesting/
 	
 	// Loop_BooCompGuard, Dec_RelComp, and Dec_RelComp2 are not from AdaptionUnitTest.java: they are
 	// new for RoboSimUnitTest/java, devised to cover the full range of guards.
