@@ -14,7 +14,7 @@ The adapted workflow file will be created in the same directory under the file n
 
 <h1>MAPE-K and the Turtlebot Simulation</h1>
 
-Our reusable instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example. The video HospitalSimulationDemo shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop to produce code that interfaces with platform RP to run the workflows from the Motivating Example.
+Our instantiation of the MAPE-K architecture is located in the HospitalSimulation folder, alongside the turtlebot simulation of the Hospital Robot example. The video HospitalSimulationDemo shows deployment of the MAPE-K adaptation process that detects the UserID of the patient from the paper and deploys the MAPE-K loop to produce code that interfaces with platform RP to run the workflows from the Motivating Example.
 
 Platform Mappings:
 
@@ -28,7 +28,7 @@ CleanFloor - Move with blinking red LED or no LED
 set floorNeedsCleaning - Button 1 for true, Button 2 for false
 set personResting -  Button 3 for true, Button 4 for false
 
-The reusable MAPE-K implementation can be found at HospitalSimulation/mapek_ws/src/infrastructure/infrastructure.
+The MAPE-K implementation can be found at HospitalSimulation/mapek_ws/src/infrastructure/infrastructure.
 
 
 ### Development Platform Requirements ###
