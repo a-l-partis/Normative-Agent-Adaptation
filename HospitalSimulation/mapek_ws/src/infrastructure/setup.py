@@ -17,7 +17,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='ahm',
-    maintainer_email='alvaro.miyazawa@york.ac.uk',
+    maintainer_email='xxxxxxxxxxxxxxxxx',
     description='TODO: Package description',
     license='Apache-2.0',
     extras_require={
