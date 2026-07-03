@@ -4,7 +4,7 @@
   <name>infrastructure</name>
   <version>0.0.0</version>
   <description>Node that monitors user id and check if analysis is needed.</description>
-  <maintainer email="alvaro.miyazawa@york.ac.uk">ahm</maintainer>
+  <maintainer email="xxxxxxxxxxxxxxxxxxxx">ahm</maintainer>
   <license>Apache-2.0</license>
 
   <exec_depend>rclpy</exec_depend>
