@@ -129,7 +129,7 @@ To run trace checks via FDR4 in the terminal, ensure FDR4 is installed and activ
 ```
 refines <Your CSP Trace Test>.csp
 ```
-The CSP files that test numerical comparisons in guards use values outside of CSP's default limits: in RoboSim you may need to edit the file instantiations.csp, generated inside csp-gen/sim/defs, as such:
+The CSP files that test numerical comparisons (The output test files with RelComp in the title) use values outside of CSP's default limits: in RoboSim you may need to edit the file instantiations.csp, generated inside csp-gen/sim/defs in order to test them, as such:
 
 ```
 nametype core_real = union({ -2..15},{calc_type_min(Union(
@@ -138,11 +138,10 @@ nametype core_real = union({ -2..15},{calc_type_min(Union(
 
 Find the scalability data collector in agentAdaptionCode/src/Scalability.java, and the folder Adaptor-And-Analysis/agentAdaptionCode/scalabilityJuly. The java file implements the experiments implementing scalability, whilst the folder contains the compressed input data. To access the input data, extract the compressed files straight into the scalabilityJuly folder. You should now have an uncompressed SLEECInput folder and an uncompressed InputWorkflows folder in scalabilityJuly. You can now run the .java file to run both experiments. The output will be collated in folders Adaptor-And-Analysis/agentAdaptionCode/scalabilityJuly/SleecCSVOutput, and Adaptor-And-Analysis/agentAdaptionCode/scalabilityJuly/DefeatersCSVOutput.
 
+Workflow files consisting of up to 10000 tasks are included, with large sleec files included. Should you want to run with larger workflows, find the LargeWorkflowGenerator.py located in this repository under Scalability/InputGenerators. The x variable on line 135 and line 103 is used to iterate over the workflows: change the limits from 10000 to the new limit.
 
 ### Reviewing Scalability Analysis
-If you wish to review out scalability analysis, the raw data and the code used to generate the graphs in Figure 9 of the graphs can be found in Normative-Agent-Adaptation/Scalability. The raw data for each experiment is in the SleecCSVOutput and DefeatersCSVOutput folders. The raw data must be removed from the containing notebooks and placed in the same folder as the .ipynb notebooks to allow them to access the data.
-
-Workflow files consisting of up to 10000 tasks are included, with large sleec files included. Should you want to run with larger workflows, find the LargeWorkflowGenerator.py located in this repository under Scalability/InputGenerators. The x variable on line 135 and line 103 is used to iterate over the workflows: change the limits from 10000 to the new limit.
+If you wish to review our scalability analysis, the raw data and the code used to generate the graphs in Figure 9 can be found in Normative-Agent-Adaptation/Scalability. The raw data for each experiment is in the SleecCSVOutput and DefeatersCSVOutput folders. The raw data must be removed from the containing notebooks and placed in the same folder as the .ipynb notebooks to allow them to access the data.
 
 ### Creating Input Files ###
 
